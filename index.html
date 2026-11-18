@@ -32,7 +32,7 @@ dialog h2{margin:0 0 2px;font-size:1.15rem}
 .sub code{background:var(--bg);padding:1px 5px;border-radius:5px;font-size:.82em}
 .desc{font-size:.85rem;color:var(--mut);white-space:pre-wrap;margin-bottom:10px;word-break:break-word}
 label.h{display:block;font-weight:600;margin:14px 0 6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)}
-textarea,input[type=text],input[type=password]{width:100%;font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 10px}
+textarea,input[type=text],input[type=password],input[type=date]{width:100%;font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 10px}
 textarea{min-height:100px;resize:vertical}
 .prev{white-space:pre-wrap;word-break:break-word;margin-top:6px;font-size:.9rem}
 a{color:var(--ac)}
@@ -48,7 +48,7 @@ a{color:var(--ac)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1b1f2b;--tx:#eceef6;--mut:#9aa1b5;--ac:#8c98ff;--acbg:#262b45;--bd:#2b3044;--hw:#3a3116;--hwtx:#f2d68a;--sh:0 1px 2px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2)}}
 :root[data-theme="dark"]{--bg:#12141c;--card:#1b1f2b;--tx:#eceef6;--mut:#9aa1b5;--ac:#8c98ff;--acbg:#262b45;--bd:#2b3044;--hw:#3a3116;--hwtx:#f2d68a;--sh:0 1px 2px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2)}
 
-/* --- ВЫДЕЛЕНИЕ ОБЪЕДИНЕННЫХ ПАР --- */
+/* --- ОБЪЕДИНЕННЫЕ ПАРЫ --- */
 .les.merged {
   border: 1.5px dashed var(--ac);
   border-left: 5px solid var(--c, var(--ac));
@@ -66,7 +66,7 @@ a{color:var(--ac)}
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding: 16px 20px 56px;
+  padding: 16px 20px 100px; /* Увеличил нижний отступ, чтобы кнопка не перекрывала контент */
 }
 h1{font-size:1.5rem;letter-spacing:-.02em;margin:4px 0 16px}
 .bar{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:8px 12px;box-shadow:var(--sh);gap:8px}
@@ -121,36 +121,109 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 .k-none{--kc:#8a8f9c;background:transparent;border-style:dashed;font-weight:600}
 .empty{flex:1 1 auto;align-self:center;width:100%}
 
-/* --- МОБИЛЬНАЯ ВЕРСИЯ (ВЕРТИКАЛЬНАЯ) --- */
+/* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
 @media (max-width: 768px) {
-  .wrap { padding: 10px 10px 40px; }
-  
-  #list {
-    flex-direction: column;
-    overflow-x: visible;
-    overflow-y: visible;
-    gap: 0;
-  }
-  .daycol {
-    flex: 1 1 auto;
-    width: 100%;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-  .bar {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .bar .lbl {
-    order: -1;
-    flex-basis: 100%;
-    text-align: left;
-    font-size: 1rem;
-    margin-bottom: 6px;
-  }
-  .les {
-    padding: 10px 12px;
-  }
+  .wrap { padding: 10px 10px 100px; }
+  #list { flex-direction: column; overflow-x: visible; overflow-y: visible; gap: 0; }
+  .daycol { flex: 1 1 auto; width: 100%; gap: 6px; margin-bottom: 16px; }
+  .bar { flex-direction: row; flex-wrap: wrap; }
+  .bar .lbl { order: -1; flex-basis: 100%; text-align: left; font-size: 1rem; margin-bottom: 6px; }
+  .les { padding: 10px 12px; }
+}
+
+/* --- КНОПКА НАПОМИНАНИЙ (FAB) --- */
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ac);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  cursor: pointer;
+  z-index: 99;
+  border: none;
+  transition: transform 0.2s;
+}
+.fab:hover { transform: scale(1.05); }
+.fab .badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #d6364d;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 2px 6px;
+  border: 2px solid var(--bg);
+  display: none;
+}
+@media (max-width: 768px) {
+  .fab { bottom: 16px; right: 16px; width: 50px; height: 50px; font-size: 20px; }
+}
+
+/* --- СПИСОК НАПОМИНАНИЙ В ДИАЛОГЕ --- */
+.rem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 12px;
+  padding-right: 4px;
+}
+.rem-list::-webkit-scrollbar { width: 6px; }
+.rem-list::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 99px; }
+.rem-item {
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.rem-item.done {
+  opacity: 0.6;
+}
+.rem-item.done .rem-text {
+  text-decoration: line-through;
+  color: var(--mut);
+}
+.rem-item input[type=checkbox] {
+  margin-top: 4px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.rem-content {
+  flex: 1;
+  min-width: 0;
+}
+.rem-date {
+  font-size: 0.75rem;
+  color: var(--ac);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.rem-text {
+  font-size: 0.95rem;
+  word-break: break-word;
+  line-height: 1.3;
+}
+.rem-subject {
+  font-size: 0.8rem;
+  color: var(--mut);
+  margin-top: 4px;
+  word-break: break-word;
 }
 
 /* --- СИНХРОНИЗАЦИЯ UI --- */
@@ -192,6 +265,33 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
   </div>
 </div>
 
+<!-- Кнопка напоминаний (справа снизу) -->
+<button class="fab" id="btnReminders" title="Напоминания">
+  🔔
+  <span class="badge" id="remBadge">0</span>
+</button>
+
+<!-- Диалог напоминаний -->
+<dialog id="dlgReminders">
+  <h2>🔔 Напоминания</h2>
+  <div class="sub">Добавьте заметку, укажите дату и (по желанию) предмет из расписания.</div>
+  
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+    <input type="text" id="remText" placeholder="Что напомнить?" style="flex:2; min-width:180px;">
+    <input type="date" id="remDate" style="flex:1; min-width:120px;">
+    <input type="text" id="remSubj" list="subjList" placeholder="Предмет (необяз.)" style="flex:1; min-width:140px;">
+    <datalist id="subjList"></datalist>
+    <button class="pri" id="remAdd" style="padding:8px 16px;">＋</button>
+  </div>
+
+  <div class="rem-list" id="remList"></div>
+  
+  <div class="row" style="justify-content:flex-end;margin-top:16px">
+    <button class="pri" id="remClose">Готово</button>
+  </div>
+</dialog>
+
+<!-- Диалоги (расписание, бэкап, синхронизация) -->
 <dialog id="dlg">
   <h2 id="dT"></h2>
   <div class="sub" id="dS"></div>
@@ -231,7 +331,6 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 
 <dialog id="dlgCloud">
   <h2>☁️ Синхронизация</h2>
-
   <div id="ghSetup">
     <div class="gh-help">
       <b>Как подключить второе устройство:</b>
@@ -243,11 +342,8 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
     </div>
     <label class="h">Код подключения или токен</label>
     <textarea id="ghIn" placeholder="Вставьте код подключения (со второго устройства) или токен ghp_… (на первом)" class="mono" style="min-height:80px"></textarea>
-    <div class="row">
-      <button class="pri" id="ghConnect" type="button">🔗 Подключить</button>
-    </div>
+    <div class="row"><button class="pri" id="ghConnect" type="button">🔗 Подключить</button></div>
   </div>
-
   <div id="ghConnected" style="display:none">
     <div class="sync-state sync-ok" id="ghConnState"></div>
     <div class="row" style="margin-top:10px">
@@ -262,13 +358,12 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
         <button class="pri" id="ghCopy" type="button">📋 Скопировать</button>
         <button id="ghCopyHide" type="button">Скрыть</button>
       </div>
-      <div class="sub" style="margin-top:6px">Вставьте этот код в поле «Код подключения» на другом устройстве — данные придут автоматически. Код = токен + ID гиста в base64. Не публикуйте его.</div>
+      <div class="sub" style="margin-top:6px">Вставьте этот код в поле «Код подключения» на другом устройстве — данные придут автоматически.</div>
     </div>
     <div class="row" style="margin-top:10px">
       <label style="display:flex;align-items:center;gap:8px;font-weight:500"><input type="checkbox" id="ghAuto"> Авто-синхронизация</label>
     </div>
   </div>
-
   <div class="sync-state" id="ghStatus" style="display:none;margin-top:12px"></div>
   <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="ghClose" type="button">Готово</button></div>
 </dialog>
@@ -303,6 +398,7 @@ const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}
 let events=ls.get('sched_events',[]);
 let notes=ls.get('sched_notes',{});
 let meta=ls.get('sched_meta',{});
+let reminders=ls.get('sched_reminders',[]);
 let dbp=null;
 const db=()=>dbp||(dbp=new Promise((res,rej)=>{try{const r=indexedDB.open('sched_files',1);
   r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}}));
@@ -421,7 +517,6 @@ function render(){
       }
       const locs = o.locs.join(', ');
       
-      // Если пара объединена, добавляем класс merged и бейдж
       const isMerged = o.isMerged;
       const mergedBadge = isMerged ? `<span class="bd merged-badge">🧩 Объединено (${o.keys.length})</span>` : '';
       const cardClass = isMerged ? 'les merged' : 'les';
@@ -458,7 +553,105 @@ function render(){
   }, {passive:false});
 })();
 
-/* диалог урока */
+/* --- НАПОМИНАНИЯ (ЛОГИКА) --- */
+function renderReminders() {
+  const list = $('#remList');
+  if (!reminders.length) {
+    list.innerHTML = '<div class="free" style="text-align:center">Нет напоминаний</div>';
+    updateRemBadge();
+    return;
+  }
+  
+  // Сортируем: сначала невыполненные, затем по дате
+  const sorted = [...reminders].sort((a,b) => {
+      if(a.done !== b.done) return a.done ? 1 : -1;
+      return (a.date||0) - (b.date||0);
+  });
+  
+  list.innerHTML = sorted.map(r => {
+    const dateStr = r.date ? new Date(r.date).toLocaleDateString('ru-RU', {day:'numeric', month:'long'}) : 'Без даты';
+    return `
+    <div class="rem-item ${r.done ? 'done' : ''}">
+      <input type="checkbox" data-id="${r.id}" ${r.done ? 'checked' : ''}>
+      <div class="rem-content">
+        <div class="rem-date">${dateStr}</div>
+        <div class="rem-text">${esc(r.text)}</div>
+        ${r.subject ? `<div class="rem-subject">📚 ${esc(r.subject)}</div>` : ''}
+      </div>
+      <button class="x del-rem" data-id="${r.id}">✕</button>
+    </div>
+  `}).join('');
+  
+  list.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.onchange = (e) => {
+      const r = reminders.find(x => x.id === e.target.dataset.id);
+      if (r) { r.done = e.target.checked; ls.set('sched_reminders', reminders); touch(); renderReminders(); }
+    };
+  });
+  
+  list.querySelectorAll('.del-rem').forEach(btn => {
+    btn.onclick = (e) => {
+      const id = e.target.dataset.id;
+      reminders = reminders.filter(x => x.id !== id);
+      ls.set('sched_reminders', reminders);
+      touch(); renderReminders();
+    };
+  });
+  
+  updateRemBadge();
+}
+
+function updateRemBadge() {
+  const active = reminders.filter(r => !r.done).length;
+  const badge = $('#remBadge');
+  if (active > 0) {
+    badge.style.display = 'inline-block';
+    badge.textContent = active;
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+$('#btnReminders').onclick = () => {
+  if (!$('#remDate').value) {
+    $('#remDate').value = new Date().toISOString().split('T')[0];
+  }
+  
+  // Обновляем даталист предметов
+  const subjs = new Set();
+  events.forEach(e => { if(e.title) subjs.add(e.title) });
+  $('#subjList').innerHTML = [...subjs].map(s => `<option value="${esc(s)}">`).join('');
+  
+  renderReminders();
+  $('#dlgReminders').showModal();
+};
+
+$('#remClose').onclick = () => $('#dlgReminders').close();
+
+$('#remAdd').onclick = () => {
+  const text = $('#remText').value.trim();
+  if (!text) return alert('Введите текст напоминания');
+  const dateStr = $('#remDate').value;
+  const subject = $('#remSubj').value.trim();
+  
+  const rem = {
+    id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+    text,
+    date: dateStr ? new Date(dateStr).getTime() : null,
+    subject,
+    done: false
+  };
+  
+  reminders.push(rem);
+  ls.set('sched_reminders', reminders);
+  touch();
+  
+  $('#remText').value = '';
+  $('#remSubj').value = '';
+  renderReminders();
+};
+
+/* Диалог урока */
 let curO=null,tmr=null;
 const note=()=>notes[curO.key]||(notes[curO.key]={text:'',links:[],files:[]});
 const save=()=>{ls.set('sched_notes',notes);touch()};
@@ -546,8 +739,8 @@ const shift=n=>{weekStart=new Date(weekStart.getFullYear(),weekStart.getMonth(),
 $('#prev').onclick=()=>shift(-1);$('#next').onclick=()=>shift(1);
 $('#today').onclick=()=>{weekStart=mondayOf(new Date());render();$('#list').scrollLeft=0};
 $('#wipe').onclick=async()=>{
-  if(!confirm('Удалить расписание, заметки и все файлы (только в этом браузере)?'))return;
-  events=[];notes={};meta={};ls.set('sched_events',[]);ls.set('sched_notes',{});ls.set('sched_meta',{});
+  if(!confirm('Удалить расписание, заметки, напоминания и все файлы (только в этом браузере)?'))return;
+  events=[];notes={};meta={};reminders=[];ls.set('sched_events',[]);ls.set('sched_notes',{});ls.set('sched_meta',{});ls.set('sched_reminders',[]);
   try{await idb('readwrite',s=>s.clear())}catch(e){}
   lastLocalEdit = lastSyncedEdit = Date.now();
   localStorage.setItem('last_edit', String(lastLocalEdit));
@@ -632,12 +825,13 @@ async function restoreFiles(filesObj){
   }
 }
 async function buildPayload(){
-  return {version:1,updatedAt:lastLocalEdit,events,notes,meta,files:await collectFiles()};
+  return {version:1,updatedAt:lastLocalEdit,events,notes,meta,reminders,files:await collectFiles()};
 }
 async function applyPayload(data){
   if(Array.isArray(data.events)){events=data.events;ls.set('sched_events',events)}
   if(data.notes&&typeof data.notes==='object'){notes=data.notes;ls.set('sched_notes',notes)}
   if(data.meta&&typeof data.meta==='object'){meta=data.meta;ls.set('sched_meta',meta)}
+  if(Array.isArray(data.reminders)){reminders=data.reminders;ls.set('sched_reminders',reminders)}
   if(data.files) await restoreFiles(data.files);
 }
 
@@ -710,7 +904,7 @@ async function syncNow(){
     const found=await resolveGist();
 
     if(!found){
-      if(events.length||Object.keys(notes).length){
+      if(events.length||Object.keys(notes).length||reminders.length){
         await doPush();
         if(cloud.gistId){
           setStatus('✓ Гист создан. Скопируйте код подключения на другое устройство.','ok');
@@ -731,7 +925,7 @@ async function syncNow(){
         lastSyncedEdit=remoteTs;
         localStorage.setItem('last_edit', String(lastLocalEdit));
         localStorage.setItem('last_sync', String(lastSyncedEdit));
-        render();
+        render(); updateRemBadge();
         setStatus('✓ Загружено с облака '+nowTime(),'ok');
       }else{
         setStatus('✓ Всё актуально');
@@ -805,7 +999,7 @@ $('#bkInp').onchange=async e=>{
     if(!confirm('Заменить текущие данные данными из файла?'))return;
     await applyPayload(data);
     lastLocalEdit=Date.now();localStorage.setItem('last_edit',String(lastLocalEdit));
-    render();
+    render(); updateRemBadge();
     const el=$('#bkStatus');el.style.display='block';el.className='sync-state sync-ok';el.textContent='✓ Импортировано';
     setTimeout(()=>$('#dlgBackup').close(),400);
   }catch(err){
@@ -879,6 +1073,7 @@ $('#ghAuto').onchange=()=>{ cloud.auto=$('#ghAuto').checked; saveCloud(); };
 
 /* ---------- старт ---------- */
 render();
+updateRemBadge();
 refreshConnectedUI();
 if(cloud.auto && cloud.token){
   setTimeout(()=>{ syncNow().catch(()=>{}) }, 200);
