@@ -9,7 +9,6 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--card:#212120;--tx:#ececE8;--mut:#9a9a94;--ac:#6c9bff;--acbg:#1f2a44;--bd:#34342f;--hw:#3a3015;--hwtx:#f0cd7a;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#161615;--card:#212120;--tx:#ececE8;--mut:#9a9a94;--ac:#6c9bff;--acbg:#1f2a44;--bd:#34342f;--hw:#3a3015;--hwtx:#f0cd7a;color-scheme:dark}
 *{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:16px}
 h1{font-size:1.3rem;margin:0 0 12px}
@@ -18,8 +17,6 @@ h1{font-size:1.3rem;margin:0 0 12px}
 button,.btn{font:inherit;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;cursor:pointer}
 button:hover,.btn:hover{border-color:var(--ac)}
 .pri{background:var(--ac);color:#fff;border-color:var(--ac)}
-.day{margin:18px 0 6px;font-weight:700;color:var(--mut);text-transform:capitalize}
-.day.today{color:var(--ac)}
 .les{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
 .les:hover{border-color:var(--ac)}
 .les .t{color:var(--mut);font-size:.85rem}
@@ -45,7 +42,6 @@ a{color:var(--ac)}
 .row small{color:var(--mut)}
 .x{padding:4px 9px}
 .thumb{max-width:100%;max-height:200px;border-radius:8px;margin:4px 0;display:block}
-.scroll{overflow-x:auto}
 .foot{margin-top:24px;font-size:.8rem;color:var(--mut)}
 :root{--bg:#f4f5fa;--card:#fff;--tx:#1f2430;--mut:#6b7280;--ac:#5b6cff;--acbg:#eceeff;--bd:#e6e8f0;--hw:#fff6dc;--hwtx:#6b4b00;--sh:0 1px 2px rgba(20,24,40,.05),0 4px 14px rgba(20,24,40,.06)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1b1f2b;--tx:#eceef6;--mut:#9aa1b5;--ac:#8c98ff;--acbg:#262b45;--bd:#2b3044;--hw:#3a3116;--hwtx:#f2d68a;--sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25)}}
@@ -73,7 +69,6 @@ dialog{border-radius:20px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 dialog h2{font-size:1.35rem;letter-spacing:-.01em}
 label.h{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:20px 0 8px}
 textarea,input[type=text],input[type=password]{border-radius:12px;padding:10px 12px}
-textarea{min-height:130px}
 textarea:focus,input:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
 .row{margin:8px 0}
 @media (max-width:520px){.bar .lbl{order:-1;flex-basis:100%;text-align:left;font-size:1.1rem}.wrap{padding:14px 12px 48px}}
@@ -84,43 +79,29 @@ textarea:focus,input:focus,button:focus-visible{outline:2px solid var(--ac);outl
 :root[data-theme="dark"] .bd{color:color-mix(in srgb,var(--kc) 65%,#fff)}
 select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:9px 10px}
 .k-none{--kc:#8a8f9c;background:transparent;border-style:dashed;font-weight:600}
-
-/* ---------- горизонтальная раскладка дней ---------- */
-#list{
-  display:flex;
-  align-items:flex-start;
-  gap:14px;
-  overflow-x:auto;
-  overflow-y:hidden;
-  padding:4px 2px 16px;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior-x:contain;
-}
+#list{display:flex;align-items:flex-start;gap:14px;overflow-x:auto;overflow-y:hidden;padding:4px 2px 16px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 #list::-webkit-scrollbar{height:8px}
 #list::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
-#list::-webkit-scrollbar-track{background:transparent}
-.daycol{
-  flex:0 0 320px;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
+.daycol{flex:0 0 320px;min-width:0;display:flex;flex-direction:column;gap:8px}
 .daycol .day{margin:4px 0 2px}
 .daycol .les{margin-bottom:0}
-.daycol .free{padding:14px}
 .empty{flex:1 1 auto;align-self:center;width:100%}
-@media (max-width:640px){
-  .daycol{flex-basis:min(86vw,340px)}
-}
-
-/* ---------- синхронизация ---------- */
+@media (max-width:640px){.daycol{flex-basis:min(86vw,340px)}}
 .foot .x{font-size:.85em;padding:4px 10px;margin-left:4px}
 #syncStatus{min-height:1.2em}
 .gh-help{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.82rem;color:var(--mut);line-height:1.55}
 .gh-help ol{margin:6px 0 0;padding-left:1.2em}
-.gh-help li{margin:3px 0}
-.sync-state{padding:6px 10px;border-radius:8px;font-size:.85rem;background:var(--acbg);color:var(--ac);min-height:1.2em}
+.gh-help li{margin:4px 0}
+.sync-state{padding:8px 12px;border-radius:10px;font-size:.85rem;background:var(--acbg);color:var(--ac);min-height:1.2em;word-break:break-word}
+.sync-err{background:#fee;color:#a00}
+.sync-ok{background:#e9f8ee;color:#0a6b2e}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .sync-err{background:#3a1515;color:#ff8c8c}
+  :root:not([data-theme="light"]) .sync-ok{background:#15331f;color:#7be49c}
+}
+:root[data-theme="dark"] .sync-err{background:#3a1515;color:#ff8c8c}
+:root[data-theme="dark"] .sync-ok{background:#15331f;color:#7be49c}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
 </style>
 </head>
 <body>
@@ -157,7 +138,6 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
   <label class="h" for="dHW">Домашнее задание</label>
   <textarea id="dHW" placeholder="Что задали? Ссылки вида https://… станут кликабельными"></textarea>
   <div class="prev" id="dPrev"></div>
-
   <label class="h">Ссылки</label>
   <div id="dLinks"></div>
   <div class="row">
@@ -165,49 +145,64 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
     <input type="text" id="lU" placeholder="https://…" style="flex:2;min-width:160px">
     <button id="lAdd">Добавить</button>
   </div>
-
   <label class="h">Файлы</label>
   <div id="dFiles"></div>
   <div class="row"><label class="btn">＋ Прикрепить файлы<input id="fIn" type="file" multiple hidden></label></div>
-
   <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="close">Готово</button></div>
 </dialog>
 
 <dialog id="dlgBackup">
   <h2>💾 Резервная копия</h2>
-  <div class="sub">Скачайте файл JSON и загрузите его на другом устройстве — расписание, заметки, ссылки и прикреплённые файлы перенесутся.</div>
+  <div class="sub">Скачайте JSON на одном устройстве и загрузите на другом — расписание, заметки, ссылки и файлы перенесутся.</div>
   <div class="row">
     <button class="pri" id="bkExp" type="button">⬇ Скачать JSON</button>
     <label class="btn">⬆ Загрузить JSON<input id="bkInp" type="file" accept=".json,application/json" hidden></label>
   </div>
-  <div class="sync-state" id="bkStatus" style="margin-top:10px"></div>
+  <div class="sync-state" id="bkStatus" style="margin-top:10px;display:none"></div>
   <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="bkClose" type="button">Готово</button></div>
 </dialog>
 
 <dialog id="dlgCloud">
   <h2>☁️ Синхронизация</h2>
-  <div class="sub">Данные хранятся в вашем приватном GitHub Gist. Один и тот же токен на всех устройствах — правки автоматически подтягиваются.</div>
-  <div class="gh-help">
-    <b>Как получить токен:</b>
-    <ol>
-      <li>Откройте <a href="https://github.com/settings/tokens/new?scopes=gist&description=Schedule" target="_blank" rel="noopener">github.com/settings/tokens/new?scopes=gist</a></li>
-      <li>Отметьте галочку <code>gist</code>, нажмите «Generate token»</li>
-      <li>Скопируйте токен <code>ghp_…</code> и вставьте ниже</li>
-      <li>Включите «Авто-синхронизацию» и нажмите «Синхронизировать сейчас»</li>
-    </ol>
-    Гист создастся сам при первой загрузке. На втором устройстве вставьте <b>тот же токен</b> — гист найдётся автоматически.
+
+  <div id="ghSetup">
+    <div class="gh-help">
+      <b>Как подключить второе устройство:</b>
+      <ol>
+        <li><b>На первом устройстве</b> (где уже есть данные) создайте токен GitHub: <a href="https://github.com/settings/tokens/new?scopes=gist&description=Schedule" target="_blank" rel="noopener">github.com/settings/tokens/new?scopes=gist</a> (галочка <code>gist</code>)</li>
+        <li>Вставьте токен в поле ниже → «Подключить». Появится <b>код подключения</b> — скопируйте.</li>
+        <li><b>На втором устройстве:</b> этот же диалог → вставьте код → «Подключить». Данные придут.</li>
+      </ol>
+    </div>
+    <label class="h">Код подключения или токен</label>
+    <textarea id="ghIn" placeholder="Вставьте код подключения (со второго устройства) или токен ghp_… (на первом)" class="mono" style="min-height:80px"></textarea>
+    <div class="row">
+      <button class="pri" id="ghConnect" type="button">🔗 Подключить</button>
+    </div>
   </div>
-  <label class="h">Токен GitHub</label>
-  <input type="password" id="ghToken" placeholder="ghp_…" autocomplete="off">
-  <label class="h">ID гиста (необязательно)</label>
-  <input type="text" id="ghGist" placeholder="пусто = найти или создать автоматически" autocomplete="off">
-  <div class="row" style="margin-top:12px">
-    <label style="display:flex;align-items:center;gap:8px;font-weight:500"><input type="checkbox" id="ghAuto"> Авто-синхронизация (пул при открытии, пуш после правок)</label>
+
+  <div id="ghConnected" style="display:none">
+    <div class="sync-state sync-ok" id="ghConnState"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="pri" id="ghSync" type="button">🔄 Синхронизировать</button>
+      <button id="ghShowCode" type="button">📤 Код подключения</button>
+      <button id="ghUnlink" type="button">Отвязать</button>
+    </div>
+    <div id="ghCodeBlock" style="display:none;margin-top:12px">
+      <label class="h">Код для других устройств</label>
+      <textarea id="ghCodeOut" readonly class="mono" style="min-height:80px"></textarea>
+      <div class="row">
+        <button class="pri" id="ghCopy" type="button">📋 Скопировать</button>
+        <button id="ghCopyHide" type="button">Скрыть</button>
+      </div>
+      <div class="sub" style="margin-top:6px">Вставьте этот код в поле «Код подключения» на другом устройстве — данные придут автоматически. Код = токен + ID гиста в base64. Не публикуйте его.</div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <label style="display:flex;align-items:center;gap:8px;font-weight:500"><input type="checkbox" id="ghAuto"> Авто-синхронизация</label>
+    </div>
   </div>
-  <div class="row">
-    <button class="pri" id="ghSync" type="button">🔄 Синхронизировать сейчас</button>
-  </div>
-  <div class="sync-state" id="ghStatus"></div>
+
+  <div class="sync-state" id="ghStatus" style="display:none;margin-top:12px"></div>
   <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="ghClose" type="button">Готово</button></div>
 </dialog>
 
@@ -233,8 +228,9 @@ const badges=o=>{const x=kindOf(o);return (x.k?`<span class="bd k-${x.k}">${KN[x
 const fmtT=ms=>new Date(ms).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
 const fmtD=d=>d.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
 const fmtSize=n=>n>1048576?(n/1048576).toFixed(1)+' МБ':Math.max(1,Math.round(n/1024))+' КБ';
+const nowTime=()=>new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
 
-/* ---------- storage ---------- */
+/* storage */
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
           set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let events=ls.get('sched_events',[]);
@@ -246,7 +242,7 @@ const db=()=>dbp||(dbp=new Promise((res,rej)=>{try{const r=indexedDB.open('sched
 const idb=async(mode,fn)=>{const d=await db();return new Promise((res,rej)=>{const t=d.transaction('f',mode);const rq=fn(t.objectStore('f'));
   t.oncomplete=()=>res(rq&&rq.result);t.onerror=()=>rej(t.error)})};
 
-/* ---------- ICS parsing ---------- */
+/* ICS */
 const unesc=s=>s.replace(/\\n/gi,'\n').replace(/\\([,;\\])/g,'$1');
 function pDate(v){
   let m=v.match(/^(\d{4})(\d\d)(\d\d)$/);
@@ -264,14 +260,7 @@ function parseICS(txt){
     if(ln==='END:VALARM'){al=false;continue}
     if(al)continue;
     if(ln==='BEGIN:VEVENT'){cur={ex:[]};continue}
-    if(ln==='END:VEVENT'){
-      if(cur&&cur.start!=null){
-        if(cur.end==null)cur.end=cur.start+(cur.allDay?86400000:3600000);
-        if(!cur.uid)cur.uid=(cur.title||'x')+cur.start;
-        out.push(cur);
-      }
-      cur=null;continue;
-    }
+    if(ln==='END:VEVENT'){if(cur&&cur.start!=null){if(cur.end==null)cur.end=cur.start+(cur.allDay?86400000:3600000);if(!cur.uid)cur.uid=(cur.title||'x')+cur.start;out.push(cur)}cur=null;continue}
     if(!cur)continue;
     const i=ln.indexOf(':');if(i<0)continue;
     const name=ln.slice(0,i).split(';')[0].toUpperCase(),val=ln.slice(i+1);
@@ -283,42 +272,27 @@ function parseICS(txt){
     else if(name==='DTSTART'){const d=pDate(val);if(d){cur.start=d.ms;cur.allDay=!!d.allDay}}
     else if(name==='DTEND'){const d=pDate(val);if(d)cur.end=d.ms}
     else if(name==='EXDATE'){val.split(',').forEach(x=>{const d=pDate(x);if(d)cur.ex.push(ymd(new Date(d.ms)))})}
-    else if(name==='RRULE'){
-      const r={};val.split(';').forEach(p=>{const [k,v]=p.split('=');r[k]=v});
+    else if(name==='RRULE'){const r={};val.split(';').forEach(p=>{const [k,v]=p.split('=');r[k]=v});
       if(r.BYDAY)r.BYDAY=r.BYDAY.split(',').map(x=>({SU:0,MO:1,TU:2,WE:3,TH:4,FR:5,SA:6})[x.replace(/[^A-Z]/g,'')]).filter(x=>x!=null);
       if(r.UNTIL){const d=pDate(r.UNTIL);if(d)r.until=d.ms+(r.UNTIL.length===8?86400000:0)}
-      cur.rr=r;
-    }
+      cur.rr=r}
   }
   return out;
 }
-
-/* ---------- recurrence expansion ---------- */
 function expand(ev,from,to){
   const out=[],dur=ev.end-ev.start,st=new Date(ev.start);
-  const push=d=>{const s=d.getTime();if(ev.ex.includes(ymd(d)))return;
-    if(s<to&&s+dur>from)out.push({...ev,s,e:s+dur,key:ev.uid+'|'+ymd(d)})};
+  const push=d=>{const s=d.getTime();if(ev.ex.includes(ymd(d)))return;if(s<to&&s+dur>from)out.push({...ev,s,e:s+dur,key:ev.uid+'|'+ymd(d)})};
   const r=ev.rr;
   if(!r){push(st);return out}
   const iv=+r.INTERVAL||1,max=r.COUNT?+r.COUNT:Infinity;let n=0;
   const y=st.getFullYear(),m=st.getMonth(),dd=st.getDate(),h=st.getHours(),mi=st.getMinutes();
-  if(r.FREQ==='DAILY'){
-    for(let i=0;i<5000;i++){const d=new Date(y,m,dd+i*iv,h,mi);
-      if((r.until&&d.getTime()>r.until)||n>=max||d.getTime()>=to)break;n++;push(d)}
-  }else if(r.FREQ==='WEEKLY'){
-    const days=(r.BYDAY&&r.BYDAY.length?r.BYDAY:[st.getDay()]).slice().sort((a,b)=>(a+6)%7-(b+6)%7);
-    const mon=(st.getDay()+6)%7;
-    for(let w=0;w<1500;w++)for(const wd of days){
-      const d=new Date(y,m,dd-mon+w*7*iv+(wd+6)%7,h,mi);
-      if(d<st)continue;
-      if((r.until&&d.getTime()>r.until)||n>=max||d.getTime()>=to)return out;
-      n++;push(d);
-    }
-  }else push(st);
+  if(r.FREQ==='DAILY'){for(let i=0;i<5000;i++){const d=new Date(y,m,dd+i*iv,h,mi);if((r.until&&d.getTime()>r.until)||n>=max||d.getTime()>=to)break;n++;push(d)}}
+  else if(r.FREQ==='WEEKLY'){const days=(r.BYDAY&&r.BYDAY.length?r.BYDAY:[st.getDay()]).slice().sort((a,b)=>(a+6)%7-(b+6)%7);const mon=(st.getDay()+6)%7;
+    for(let w=0;w<1500;w++)for(const wd of days){const d=new Date(y,m,dd-mon+w*7*iv+(wd+6)%7,h,mi);if(d<st)continue;if((r.until&&d.getTime()>r.until)||n>=max||d.getTime()>=to)return out;n++;push(d)}}
+  else push(st);
   return out;
 }
 
-/* ---------- week view ---------- */
 let weekStart=mondayOf(new Date());
 function mondayOf(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate()-((d.getDay()+6)%7))}
 function render(){
@@ -332,12 +306,10 @@ function render(){
   for(let i=0;i<7;i++){
     const d=new Date(weekStart.getFullYear(),weekStart.getMonth(),weekStart.getDate()+i);
     const k=ymd(d),items=occ.filter(o=>ymd(new Date(o.s))===k);
-    html+=`<div class="daycol">
-      <div class="day ${k===todayK?'today':''}"><b>${esc(fmtD(d))}</b>${k===todayK?'<span class="tb">сегодня</span>':''}</div>`;
+    html+=`<div class="daycol"><div class="day ${k===todayK?'today':''}"><b>${esc(fmtD(d))}</b>${k===todayK?'<span class="tb">сегодня</span>':''}</div>`;
     if(!items.length){html+='<div class="free">Пар нет</div></div>';continue}
     for(const o of items){
-      const nt=notes[o.key]||{};
-      const nL=(nt.links||[]).length,nF=(nt.files||[]).length;
+      const nt=notes[o.key]||{};const nL=(nt.links||[]).length,nF=(nt.files||[]).length;
       html+=`<div class="les" data-k="${esc(o.key)}" style="--c:hsl(${hue(o.title)} 65% 52%)">
         <div class="t">${o.allDay?'весь день':fmtT(o.s)+' – '+fmtT(o.e)}</div>
         <div class="n">${esc(o.title||'Без названия')}</div>
@@ -356,7 +328,7 @@ function render(){
   });
 }
 
-/* ---------- колесо мыши: вверх → вправо, вниз → влево ---------- */
+/* колесо мыши */
 (function(){
   const list=$('#list');
   list.addEventListener('wheel',e=>{
@@ -367,7 +339,7 @@ function render(){
   }, {passive:false});
 })();
 
-/* ---------- lesson dialog ---------- */
+/* диалог урока */
 let curO=null,tmr=null;
 const note=()=>notes[curO.key]||(notes[curO.key]={text:'',links:[],files:[]});
 const save=()=>{ls.set('sched_notes',notes);touch()};
@@ -391,7 +363,6 @@ $('#dlg').onclose=()=>{
   if(n&&!n.text&&!n.links.length&&!n.files.length)delete notes[curO.key];
   save();render();
 };
-
 function drawLinks(){
   const n=note();
   $('#dLinks').innerHTML=n.links.map((l,i)=>`<div class="row"><a class="grow" href="${esc(l.u)}" target="_blank" rel="noopener noreferrer">🔗 ${esc(l.t||l.u)}</a><button class="x" data-i="${i}">✕</button></div>`).join('')||'<div class="free">Пока нет</div>';
@@ -404,7 +375,6 @@ $('#lAdd').onclick=()=>{
   note().links.push({t:$('#lT').value.trim(),u});save();
   $('#lT').value='';$('#lU').value='';drawLinks();
 };
-
 async function drawFiles(){
   const n=note();const box=$('#dFiles');
   if(!n.files.length){box.innerHTML='<div class="free">Пока нет</div>';return}
@@ -417,8 +387,7 @@ async function drawFiles(){
     let blob=null;try{blob=await idb('readonly',s=>s.get(f.id))}catch(e){}
     const url=blob?URL.createObjectURL(blob):null;
     const dl=row.querySelector('.dl');
-    if(url){dl.href=url;dl.download=f.name;
-      row.querySelector('.o').onclick=()=>window.open(url,'_blank');
+    if(url){dl.href=url;dl.download=f.name;row.querySelector('.o').onclick=()=>window.open(url,'_blank');
       if(/^image\//.test(f.type))row.querySelector('.pv').innerHTML=`<img class="thumb" src="${url}" alt="">`;
     }else{row.querySelector('.o').disabled=true;dl.style.opacity=.4}
     row.querySelector('.del').onclick=async()=>{
@@ -438,7 +407,7 @@ $('#fIn').onchange=async e=>{
   e.target.value='';save();drawFiles();
 };
 
-/* ---------- import / nav ---------- */
+/* импорт и навигация */
 async function importFile(file){
   if(!file)return;
   const list=parseICS(await file.text());
@@ -449,9 +418,7 @@ async function importFile(file){
   const now=new Date(),from=mondayOf(now).getTime();
   const hasThis=events.some(e=>expand(e,from,from+7*864e5).length);
   if(!hasThis){const first=Math.min(...events.map(e=>e.start));weekStart=mondayOf(new Date(first))}
-  touch();
-  render();
-  $('#list').scrollLeft=0;
+  touch();render();$('#list').scrollLeft=0;
 }
 $('#ics').onchange=e=>{importFile(e.target.files[0]);e.target.value=''};
 addEventListener('dragover',e=>e.preventDefault());
@@ -463,7 +430,6 @@ $('#wipe').onclick=async()=>{
   if(!confirm('Удалить расписание, заметки и все файлы (только в этом браузере)?'))return;
   events=[];notes={};meta={};ls.set('sched_events',[]);ls.set('sched_notes',{});ls.set('sched_meta',{});
   try{await idb('readwrite',s=>s.clear())}catch(e){}
-  // чтобы не подтянуть обратно с облака — считаем, что "локально всё синхронизировано"
   lastLocalEdit = lastSyncedEdit = Date.now();
   localStorage.setItem('last_edit', String(lastLocalEdit));
   localStorage.setItem('last_sync', String(lastSyncedEdit));
@@ -471,12 +437,10 @@ $('#wipe').onclick=async()=>{
 };
 
 /* ============================================================
-   СИНХРОНИЗАЦИЯ И РЕЗЕРВНЫЕ КОПИИ
+   СИНХРОНИЗАЦИЯ
    ============================================================ */
-
-// --- состояние ---
 const CLOUD_KEY='gh_cloud';
-let cloud={token:'',gistId:'',auto:false};
+let cloud={token:'',gistId:'',auto:true};
 try{Object.assign(cloud, JSON.parse(localStorage.getItem(CLOUD_KEY)||'{}'))}catch(e){}
 const saveCloud=()=>localStorage.setItem(CLOUD_KEY, JSON.stringify(cloud));
 
@@ -487,12 +451,11 @@ let pushTimer=null;
 function touch(){
   lastLocalEdit=Date.now();
   localStorage.setItem('last_edit', String(lastLocalEdit));
-  if(cloud.auto && cloud.token){
+  if(cloud.auto && cloud.token && cloud.gistId){
     clearTimeout(pushTimer);
     pushTimer=setTimeout(()=>{doPush().catch(()=>{})}, 1500);
   }
 }
-// дослать изменения при уходе со страницы
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden && pushTimer){
     clearTimeout(pushTimer);
@@ -501,13 +464,18 @@ document.addEventListener('visibilitychange',()=>{
   }
 });
 
-function setStatus(msg){
-  const a=$('#ghStatus'); if(a) a.textContent=msg;
-  const b=$('#syncStatus'); if(b) b.textContent=msg;
-  const c=$('#bkStatus'); if(c) c.textContent=msg;
+function setStatus(msg,kind){
+  for(const id of ['#ghStatus','#syncStatus']){
+    const el=$(id); if(!el) continue;
+    if(!msg){ el.style.display='none'; el.textContent=''; continue; }
+    el.style.display='block';
+    el.textContent=msg;
+    el.classList.remove('sync-err','sync-ok');
+    if(kind) el.classList.add('sync-'+kind);
+  }
 }
 
-// --- утилиты для файлов ---
+/* base64 ↔ blob */
 function blobToBase64(blob){
   return new Promise((res,rej)=>{
     const r=new FileReader();
@@ -517,8 +485,7 @@ function blobToBase64(blob){
   });
 }
 function base64ToBlob(b64,type){
-  const bin=atob(b64);
-  const arr=new Uint8Array(bin.length);
+  const bin=atob(b64);const arr=new Uint8Array(bin.length);
   for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
   return new Blob([arr],{type:type||'application/octet-stream'});
 }
@@ -533,7 +500,7 @@ async function collectFiles(){
       let metaFile=null;
       for(const k in notes) for(const f of (notes[k].files||[])) if(f.id===id) metaFile=f;
       out[id]={name:metaFile?.name,size:metaFile?.size,type:metaFile?.type||blob.type,data:await blobToBase64(blob)};
-    }catch(e){console.warn('collectFiles', id, e)}
+    }catch(e){console.warn('collectFiles',id,e)}
   }
   return out;
 }
@@ -541,29 +508,21 @@ async function restoreFiles(filesObj){
   if(!filesObj)return;
   for(const id in filesObj){
     const f=filesObj[id];
-    try{
-      const blob=base64ToBlob(f.data, f.type);
-      await idb('readwrite',s=>s.put(blob,id));
-    }catch(e){console.warn('restoreFiles', id, e)}
+    try{ await idb('readwrite',s=>s.put(base64ToBlob(f.data,f.type),id)); }
+    catch(e){console.warn('restoreFiles',id,e)}
   }
 }
-
 async function buildPayload(){
-  return {
-    version:1,
-    updatedAt:lastLocalEdit,
-    events, notes, meta,
-    files:await collectFiles()
-  };
+  return {version:1,updatedAt:lastLocalEdit,events,notes,meta,files:await collectFiles()};
 }
 async function applyPayload(data){
-  if(Array.isArray(data.events)){events=data.events; ls.set('sched_events',events)}
-  if(data.notes&&typeof data.notes==='object'){notes=data.notes; ls.set('sched_notes',notes)}
-  if(data.meta&&typeof data.meta==='object'){meta=data.meta; ls.set('sched_meta',meta)}
+  if(Array.isArray(data.events)){events=data.events;ls.set('sched_events',events)}
+  if(data.notes&&typeof data.notes==='object'){notes=data.notes;ls.set('sched_notes',notes)}
+  if(data.meta&&typeof data.meta==='object'){meta=data.meta;ls.set('sched_meta',meta)}
   if(data.files) await restoreFiles(data.files);
 }
 
-// --- GitHub Gist API ---
+/* GitHub API */
 async function ghFetch(url, opts={}){
   opts.headers=Object.assign({
     'Authorization':'Bearer '+cloud.token,
@@ -575,7 +534,7 @@ async function resolveGist(){
   if(cloud.gistId) return cloud.gistId;
   if(!cloud.token) return null;
   const r=await ghFetch('https://api.github.com/gists?per_page=100');
-  if(!r.ok) throw new Error('gists: '+r.status);
+  if(!r.ok) throw new Error('gists: '+r.status+' (проверьте токен)');
   const list=await r.json();
   for(const g of list){
     if(g.files && g.files['schedule.json']){ cloud.gistId=g.id; saveCloud(); return g.id; }
@@ -602,125 +561,214 @@ async function ghPush(data){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(body)
   });
-  if(!r.ok){
-    const t=await r.text();
-    throw new Error('push: '+r.status+' '+t.slice(0,180));
-  }
+  if(!r.ok){const t=await r.text();throw new Error('push: '+r.status+' '+t.slice(0,180))}
   const g=await r.json();
   if(isNew){cloud.gistId=g.id; saveCloud();}
   return g;
 }
 
+/* ключевая функция — исправлено: теперь создаёт гист */
 async function doPush(){
-  if(!cloud.token||!cloud.gistId) return;
+  if(!cloud.token) return;
   if(lastLocalEdit<=lastSyncedEdit) return;
+  const wasNew=!cloud.gistId;
   const data=await buildPayload();
   data.updatedAt=lastLocalEdit;
   await ghPush(data);
   lastSyncedEdit=lastLocalEdit;
   localStorage.setItem('last_sync', String(lastSyncedEdit));
-  setStatus('✓ Сохранено в облако '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}));
+  if(wasNew){
+    setStatus('✓ Гист создан. Скопируйте код подключения на другое устройство.','ok');
+    showCode(true);
+  }else{
+    setStatus('✓ Сохранено в облако '+nowTime(),'ok');
+  }
 }
 
+/* исправлено: сначала смотрим, что в облаке, потом решаем */
 async function syncNow(){
-  if(!cloud.token){setStatus('⚠ Введите токен GitHub');return}
+  if(!cloud.token){setStatus('⚠ Введите токен или код подключения');return}
   try{
     setStatus('⏳ Синхронизация…');
     const found=await resolveGist();
+
     if(!found){
       if(events.length||Object.keys(notes).length){
-        await doPush();
-        setStatus('✓ Создан гист. Скопируйте токен на другом устройстве — данные придут автоматически.');
+        await doPush();   // <-- теперь создаёт гист
+        if(cloud.gistId){
+          setStatus('✓ Гист создан. Скопируйте код подключения на другое устройство.','ok');
+        }
       }else{
-        setStatus('ℹ Пока нечего загружать — импортируйте .ics или добавьте заметки.');
+        setStatus('ℹ Локально пусто и в облаке гиста нет. Импортируйте .ics или подключитесь по коду.');
       }
       return;
     }
-    // сначала выгружаем свои несинхронизированные правки (если есть)
-    if(lastLocalEdit>lastSyncedEdit) await doPush();
-    const data=await ghPull();
-    if(data && (data.updatedAt||0) > lastSyncedEdit){
-      await applyPayload(data);
-      lastLocalEdit=data.updatedAt;
-      lastSyncedEdit=data.updatedAt;
-      localStorage.setItem('last_edit', String(lastLocalEdit));
-      localStorage.setItem('last_sync', String(lastSyncedEdit));
-      render();
-      setStatus('✓ Загружено с облака '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}));
+
+    const remote=await ghPull();
+    const remoteTs=remote?.updatedAt||0;
+
+    if(remoteTs>=lastLocalEdit){
+      // в облаке свежее (или равно) — тянем
+      if(remote){
+        await applyPayload(remote);
+        lastLocalEdit=remoteTs;
+        lastSyncedEdit=remoteTs;
+        localStorage.setItem('last_edit', String(lastLocalEdit));
+        localStorage.setItem('last_sync', String(lastSyncedEdit));
+        render();
+        setStatus('✓ Загружено с облака '+nowTime(),'ok');
+      }else{
+        setStatus('✓ Всё актуально');
+      }
     }else{
-      setStatus('✓ Всё актуально');
+      // локально свежее — шлём
+      await doPush();
     }
   }catch(e){
-    setStatus('✗ '+e.message);
+    setStatus('✗ '+e.message,'err');
     console.error(e);
   }
 }
 
-async function pullOnLoad(){
-  if(!cloud.auto||!cloud.token) return;
-  await syncNow();
+/* ---------- код подключения ---------- */
+function makeCode(){
+  if(!cloud.token||!cloud.gistId) return '';
+  try{
+    return btoa(JSON.stringify({t:cloud.token,g:cloud.gistId}));
+  }catch(e){return ''}
+}
+function parseCode(s){
+  try{
+    const o=JSON.parse(atob(s.trim()));
+    if(o && typeof o.t==='string' && o.t) return {token:o.t, gistId:o.g||''};
+  }catch(e){}
+  return null;
+}
+function looksLikeToken(s){
+  return /^[A-Za-z0-9_]{20,}$/.test(s.trim());
 }
 
-/* --- UI: резервная копия --- */
-$('#btnBackup').onclick=()=>{ $('#bkStatus').textContent=''; $('#dlgBackup').showModal(); };
+function refreshConnectedUI(){
+  const connected=!!(cloud.token&&cloud.gistId);
+  $('#ghSetup').style.display=connected?'none':'block';
+  $('#ghConnected').style.display=connected?'block':'none';
+  if(connected){
+    $('#ghConnState').textContent='✅ Подключено · гист '+cloud.gistId.slice(0,8)+'…';
+    $('#ghAuto').checked=!!cloud.auto;
+  }
+}
+function showCode(show){
+  if(!cloud.gistId){return}
+  $('#ghCodeBlock').style.display=show?'block':'none';
+  if(show) $('#ghCodeOut').value=makeCode();
+}
+
+/* ---------- UI ---------- */
+$('#btnBackup').onclick=()=>{
+  $('#bkStatus').style.display='none';$('#bkStatus').textContent='';
+  $('#dlgBackup').showModal();
+};
 $('#bkClose').onclick=()=>$('#dlgBackup').close();
 $('#bkExp').onclick=async()=>{
   try{
-    setStatus('⏳ Готовим файл…');
     const data=await buildPayload();
     const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
-    a.href=url;
-    a.download='schedule-backup-'+new Date().toISOString().slice(0,10)+'.json';
-    a.click();
+    a.href=url;a.download='schedule-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();
     setTimeout(()=>URL.revokeObjectURL(url),5000);
-    setStatus('✓ Файл скачан');
-  }catch(e){setStatus('✗ '+e.message)}
+    const el=$('#bkStatus');el.style.display='block';el.className='sync-state sync-ok';el.textContent='✓ Файл скачан';
+  }catch(e){
+    const el=$('#bkStatus');el.style.display='block';el.className='sync-state sync-err';el.textContent='✗ '+e.message;
+  }
 };
 $('#bkInp').onchange=async e=>{
-  const f=e.target.files[0]; e.target.value='';
-  if(!f) return;
+  const f=e.target.files[0];e.target.value='';
+  if(!f)return;
   try{
     const data=JSON.parse(await f.text());
-    if(!confirm('Заменить текущие данные данными из файла?')) return;
+    if(!confirm('Заменить текущие данные данными из файла?'))return;
     await applyPayload(data);
-    lastLocalEdit=Date.now();
-    localStorage.setItem('last_edit', String(lastLocalEdit));
+    lastLocalEdit=Date.now();localStorage.setItem('last_edit',String(lastLocalEdit));
     render();
-    setStatus('✓ Импортировано');
-    setTimeout(()=>{$('#dlgBackup').close()}, 500);
-  }catch(err){setStatus('✗ '+err.message)}
+    const el=$('#bkStatus');el.style.display='block';el.className='sync-state sync-ok';el.textContent='✓ Импортировано';
+    setTimeout(()=>$('#dlgBackup').close(),400);
+  }catch(err){
+    const el=$('#bkStatus');el.style.display='block';el.className='sync-state sync-err';el.textContent='✗ '+err.message;
+  }
 };
 
-/* --- UI: синхронизация --- */
 $('#btnCloud').onclick=()=>{
-  $('#ghToken').value=cloud.token||'';
-  $('#ghGist').value=cloud.gistId||'';
-  $('#ghAuto').checked=!!cloud.auto;
-  $('#ghStatus').textContent='';
+  setStatus('');
+  refreshConnectedUI();
+  if(!cloud.token) $('#ghIn').value='';
   $('#dlgCloud').showModal();
 };
 $('#ghClose').onclick=()=>{
-  cloud.token=$('#ghToken').value.trim();
-  cloud.gistId=$('#ghGist').value.trim();
-  cloud.auto=$('#ghAuto').checked;
+  cloud.auto=$('#ghAuto')?$('#ghAuto').checked:cloud.auto;
   saveCloud();
   $('#dlgCloud').close();
 };
+$('#ghConnect').onclick=async()=>{
+  const raw=$('#ghIn').value.trim();
+  if(!raw){setStatus('⚠ Введите код или токен','err');return}
+
+  const parsed=parseCode(raw);
+  if(parsed){
+    cloud.token=parsed.token;
+    cloud.gistId=parsed.gistId;
+    cloud.auto=true;
+    saveCloud();
+    refreshConnectedUI();
+    await syncNow();
+    return;
+  }
+
+  if(looksLikeToken(raw)){
+    // Скорее всего это токен
+    cloud.token=raw;
+    cloud.gistId='';
+    cloud.auto=true;
+    saveCloud();
+    refreshConnectedUI();
+    await syncNow();
+    return;
+  }
+
+  setStatus('⚠ Не похоже ни на код подключения, ни на токен. Проверьте, что скопировали целиком.','err');
+};
 $('#ghSync').onclick=async()=>{
-  cloud.token=$('#ghToken').value.trim();
-  cloud.gistId=$('#ghGist').value.trim();
   cloud.auto=$('#ghAuto').checked;
   saveCloud();
   await syncNow();
 };
+$('#ghShowCode').onclick=()=>showCode(true);
+$('#ghCopyHide').onclick=()=>showCode(false);
+$('#ghCopy').onclick=async()=>{
+  const v=$('#ghCodeOut').value;
+  if(!v)return;
+  try{
+    await navigator.clipboard.writeText(v);
+    setStatus('✓ Код скопирован в буфер','ok');
+  }catch(e){
+    // fallback: выделить
+    const el=$('#ghCodeOut');el.focus();el.select();
+    try{document.execCommand('copy');setStatus('✓ Код скопирован','ok')}catch(_){setStatus('Скопируйте вручную: Ctrl+C / Cmd+C')}
+  }
+};
+$('#ghUnlink').onclick=()=>{
+  if(!confirm('Отвязать это устройство от синхронизации?\nЛокальные данные останутся, но перестанут синкаться.'))return;
+  cloud.token='';cloud.gistId='';cloud.auto=false;saveCloud();
+  refreshConnectedUI();
+  setStatus('✓ Отвязано','ok');
+};
+$('#ghAuto').onchange=()=>{ cloud.auto=$('#ghAuto').checked; saveCloud(); };
 
-/* --- авто-подтягивание при загрузке --- */
+/* ---------- старт ---------- */
 render();
+refreshConnectedUI();
 if(cloud.auto && cloud.token){
-  // отложим, чтобы первый рендер успел
-  setTimeout(()=>{pullOnLoad().catch(()=>{})}, 100);
+  setTimeout(()=>{ syncNow().catch(()=>{}) }, 200);
 }
 </script>
 </body>
