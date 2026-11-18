@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Расписание и ДЗ</title>
+<style>
+:root{--bg:#f6f6f3;--card:#fff;--tx:#1d1d1b;--mut:#6b6b66;--ac:#2f6fed;--acbg:#e8f0ff;--bd:#e3e3dd;--hw:#fff4d6;--hwtx:#7a5600;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--card:#212120;--tx:#ececE8;--mut:#9a9a94;--ac:#6c9bff;--acbg:#1f2a44;--bd:#34342f;--hw:#3a3015;--hwtx:#f0cd7a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161615;--card:#212120;--tx:#ececE8;--mut:#9a9a94;--ac:#6c9bff;--acbg:#1f2a44;--bd:#34342f;--hw:#3a3015;--hwtx:#f0cd7a;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:0 0 12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.bar .lbl{flex:1;font-weight:600;text-align:center;min-width:140px}
+button,.btn{font:inherit;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;cursor:pointer}
+button:hover,.btn:hover{border-color:var(--ac)}
+.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+.day{margin:18px 0 6px;font-weight:700;color:var(--mut);text-transform:capitalize}
+.day.today{color:var(--ac)}
+.les{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.les:hover{border-color:var(--ac)}
+.les .t{color:var(--mut);font-size:.85rem}
+.les .n{font-weight:600}
+.les .loc{color:var(--mut);font-size:.85rem}
+.hw{margin-top:8px;background:var(--hw);color:var(--hwtx);border-radius:8px;padding:6px 10px;font-size:.9rem;white-space:pre-wrap;word-break:break-word}
+.chips{margin-top:6px;font-size:.8rem;color:var(--mut)}
+.empty{border:2px dashed var(--bd);border-radius:14px;padding:28px;text-align:center;color:var(--mut)}
+.free{color:var(--mut);font-size:.9rem;padding:2px 2px 0}
+dialog{border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);width:min(640px,94vw);max-height:90vh;padding:18px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog h2{margin:0 0 2px;font-size:1.15rem}
+.sub{color:var(--mut);font-size:.85rem;margin-bottom:10px;line-height:1.45}
+.sub code{background:var(--bg);padding:1px 5px;border-radius:5px;font-size:.82em}
+.desc{font-size:.85rem;color:var(--mut);white-space:pre-wrap;margin-bottom:10px;word-break:break-word}
+label.h{display:block;font-weight:600;margin:14px 0 6px}
+textarea,input[type=text],input[type=password]{width:100%;font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 10px}
+textarea{min-height:110px;resize:vertical}
+.prev{white-space:pre-wrap;word-break:break-word;margin-top:6px;font-size:.92rem}
+a{color:var(--ac)}
+.row{display:flex;gap:8px;align-items:center;margin:6px 0;flex-wrap:wrap}
+.row .grow{flex:1;min-width:120px;word-break:break-all}
+.row small{color:var(--mut)}
+.x{padding:4px 9px}
+.thumb{max-width:100%;max-height:200px;border-radius:8px;margin:4px 0;display:block}
+.scroll{overflow-x:auto}
+.foot{margin-top:24px;font-size:.8rem;color:var(--mut)}
+:root{--bg:#f4f5fa;--card:#fff;--tx:#1f2430;--mut:#6b7280;--ac:#5b6cff;--acbg:#eceeff;--bd:#e6e8f0;--hw:#fff6dc;--hwtx:#6b4b00;--sh:0 1px 2px rgba(20,24,40,.05),0 4px 14px rgba(20,24,40,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1b1f2b;--tx:#eceef6;--mut:#9aa1b5;--ac:#8c98ff;--acbg:#262b45;--bd:#2b3044;--hw:#3a3116;--hwtx:#f2d68a;--sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25)}}
+:root[data-theme="dark"]{--bg:#12141c;--card:#1b1f2b;--tx:#eceef6;--mut:#9aa1b5;--ac:#8c98ff;--acbg:#262b45;--bd:#2b3044;--hw:#3a3116;--hwtx:#f2d68a;--sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25)}
+body{line-height:1.5}
+.wrap{max-width:820px;padding:20px 16px 56px}
+h1{font-size:1.6rem;letter-spacing:-.02em;margin:4px 0 16px}
+.bar{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:10px;box-shadow:var(--sh);gap:6px}
+.bar .lbl{font-size:1.02rem}
+button,.btn{border-radius:12px;padding:10px 14px;font-weight:500;transition:border-color .15s,background .15s}
+.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+.pri:hover{filter:brightness(1.08)}
+.day{display:flex;align-items:center;gap:10px;margin:28px 0 10px;font-size:1.05rem;color:var(--tx)}
+.day.today{color:var(--ac)}
+.tb{background:var(--ac);color:#fff;font-size:.7rem;padding:2px 9px;border-radius:99px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.free{padding:10px 14px;border:1px dashed var(--bd);border-radius:12px}
+.les{border-radius:16px;border-left:6px solid var(--c,var(--ac));box-shadow:var(--sh);padding:14px 16px;transition:transform .12s,border-color .12s}
+.les:hover{transform:translateY(-1px)}
+.les .t{display:inline-block;color:var(--c,var(--ac));background:color-mix(in srgb,var(--c,var(--ac)) 14%,transparent);font-weight:600;padding:2px 10px;border-radius:99px;font-size:.82rem;margin-bottom:6px}
+.les .n{font-size:1.1rem;font-weight:650}
+.les .loc{margin-top:2px}
+.hw{border-left:4px solid #f5b83d;border-radius:10px;padding:8px 12px;margin-top:10px;line-height:1.45}
+.chips{margin-top:8px;display:flex;gap:12px}
+dialog{border-radius:20px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog h2{font-size:1.35rem;letter-spacing:-.01em}
+label.h{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:20px 0 8px}
+textarea,input[type=text],input[type=password]{border-radius:12px;padding:10px 12px}
+textarea{min-height:130px}
+textarea:focus,input:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.row{margin:8px 0}
+@media (max-width:520px){.bar .lbl{order:-1;flex-basis:100%;text-align:left;font-size:1.1rem}.wrap{padding:14px 12px 48px}}
+.bds{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.bd{--kc:#3b6ef0;display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:99px;color:var(--kc);background:color-mix(in srgb,var(--kc) 15%,transparent);border:1px solid color-mix(in srgb,var(--kc) 35%,transparent)}
+.k-lec{--kc:#3b6ef0}.k-prac{--kc:#0f9d6b}.k-lab{--kc:#c0701a}.k-sem{--kc:#8a4fd6}.k-exam{--kc:#d6364d}.k-on{--kc:#0e8fb0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bd{color:color-mix(in srgb,var(--kc) 65%,#fff)}}
+:root[data-theme="dark"] .bd{color:color-mix(in srgb,var(--kc) 65%,#fff)}
+select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:9px 10px}
+.k-none{--kc:#8a8f9c;background:transparent;border-style:dashed;font-weight:600}
+
+/* ---------- горизонтальная раскладка дней ---------- */
+#list{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:4px 2px 16px;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+}
+#list::-webkit-scrollbar{height:8px}
+#list::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
+#list::-webkit-scrollbar-track{background:transparent}
+.daycol{
+  flex:0 0 320px;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.daycol .day{margin:4px 0 2px}
+.daycol .les{margin-bottom:0}
+.daycol .free{padding:14px}
+.empty{flex:1 1 auto;align-self:center;width:100%}
+@media (max-width:640px){
+  .daycol{flex-basis:min(86vw,340px)}
+}
+
+/* ---------- синхронизация ---------- */
+.foot .x{font-size:.85em;padding:4px 10px;margin-left:4px}
+#syncStatus{min-height:1.2em}
+.gh-help{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.82rem;color:var(--mut);line-height:1.55}
+.gh-help ol{margin:6px 0 0;padding-left:1.2em}
+.gh-help li{margin:3px 0}
+.sync-state{padding:6px 10px;border-radius:8px;font-size:.85rem;background:var(--acbg);color:var(--ac);min-height:1.2em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📚 Расписание и домашние задания</h1>
+  <div class="bar">
+    <button id="prev" aria-label="Назад">‹</button>
+    <button id="today">Сегодня</button>
+    <button id="next" aria-label="Вперёд">›</button>
+    <div class="lbl" id="range"></div>
+    <label class="btn pri">Импорт .ics<input id="ics" type="file" accept=".ics,text/calendar" hidden></label>
+  </div>
+  <div id="list"></div>
+  <div class="foot">
+    <div>Данные хранятся в этом браузере.
+      <button id="btnBackup" class="x" type="button">💾 Резервная копия</button>
+      <button id="btnCloud" class="x" type="button">☁️ Синхронизация</button>
+      <button id="wipe" class="x" type="button">Удалить всё</button>
+    </div>
+    <div id="syncStatus"></div>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <h2 id="dT"></h2>
+  <div class="sub" id="dS"></div>
+  <div class="bds" id="dB" style="margin:0 0 10px"></div>
+  <div class="desc" id="dD"></div>
+  <label class="h">Тип занятия (для всех таких пар)</label>
+  <div class="row">
+    <select id="sKind"><option value="auto">Тип: авто</option><option value="lec">Лекция</option><option value="prac">Практика</option><option value="lab">Лабораторная</option><option value="sem">Семинар</option><option value="exam">Экзамен</option><option value="none">Не указывать</option></select>
+    <select id="sOn"><option value="auto">Формат: авто</option><option value="yes">Онлайн</option><option value="no">Очно</option></select>
+  </div>
+  <label class="h" for="dHW">Домашнее задание</label>
+  <textarea id="dHW" placeholder="Что задали? Ссылки вида https://… станут кликабельными"></textarea>
+  <div class="prev" id="dPrev"></div>
+
+  <label class="h">Ссылки</label>
+  <div id="dLinks"></div>
+  <div class="row">
+    <input type="text" id="lT" placeholder="Название (необязательно)" style="flex:1;min-width:130px">
+    <input type="text" id="lU" placeholder="https://…" style="flex:2;min-width:160px">
+    <button id="lAdd">Добавить</button>
+  </div>
+
+  <label class="h">Файлы</label>
+  <div id="dFiles"></div>
+  <div class="row"><label class="btn">＋ Прикрепить файлы<input id="fIn" type="file" multiple hidden></label></div>
+
+  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="close">Готово</button></div>
+</dialog>
+
+<dialog id="dlgBackup">
+  <h2>💾 Резервная копия</h2>
+  <div class="sub">Скачайте файл JSON и загрузите его на другом устройстве — расписание, заметки, ссылки и прикреплённые файлы перенесутся.</div>
+  <div class="row">
+    <button class="pri" id="bkExp" type="button">⬇ Скачать JSON</button>
+    <label class="btn">⬆ Загрузить JSON<input id="bkInp" type="file" accept=".json,application/json" hidden></label>
+  </div>
+  <div class="sync-state" id="bkStatus" style="margin-top:10px"></div>
+  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="bkClose" type="button">Готово</button></div>
+</dialog>
+
+<dialog id="dlgCloud">
+  <h2>☁️ Синхронизация</h2>
+  <div class="sub">Данные хранятся в вашем приватном GitHub Gist. Один и тот же токен на всех устройствах — правки автоматически подтягиваются.</div>
+  <div class="gh-help">
+    <b>Как получить токен:</b>
+    <ol>
+      <li>Откройте <a href="https://github.com/settings/tokens/new?scopes=gist&description=Schedule" target="_blank" rel="noopener">github.com/settings/tokens/new?scopes=gist</a></li>
+      <li>Отметьте галочку <code>gist</code>, нажмите «Generate token»</li>
+      <li>Скопируйте токен <code>ghp_…</code> и вставьте ниже</li>
+      <li>Включите «Авто-синхронизацию» и нажмите «Синхронизировать сейчас»</li>
+    </ol>
+    Гист создастся сам при первой загрузке. На втором устройстве вставьте <b>тот же токен</b> — гист найдётся автоматически.
+  </div>
+  <label class="h">Токен GitHub</label>
+  <input type="password" id="ghToken" placeholder="ghp_…" autocomplete="off">
+  <label class="h">ID гиста (необязательно)</label>
+  <input type="text" id="ghGist" placeholder="пусто = найти или создать автоматически" autocomplete="off">
+  <div class="row" style="margin-top:12px">
+    <label style="display:flex;align-items:center;gap:8px;font-weight:500"><input type="checkbox" id="ghAuto"> Авто-синхронизация (пул при открытии, пуш после правок)</label>
+  </div>
+  <div class="row">
+    <button class="pri" id="ghSync" type="button">🔄 Синхронизировать сейчас</button>
+  </div>
+  <div class="sync-state" id="ghStatus"></div>
+  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="ghClose" type="button">Готово</button></div>
+</dialog>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const linkify=s=>esc(s).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+const ymd=d=>d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+const hue=s=>{let h=0;for(const c of String(s||''))h=(h*31+c.charCodeAt(0))%360;return h};
+const KN={lec:'Лекция',prac:'Практика',lab:'Лабораторная',sem:'Семинар',exam:'Экзамен'};
+const NB='(^|[^а-яёa-z])',NE='([^а-яёa-z]|$)';
+const KR=[['exam',/экзамен|зач[её]т|exam|контрольн|коллоквиум/],['lab',new RegExp('лаборат|laborator|'+NB+'(лб|лр|lab)'+NE)],['sem',/семинар|seminar/],['prac',new RegExp('практ|practic|tutorial|'+NB+'пз'+NE)],['lec',new RegExp('лекц|lecture|'+NB+'лк'+NE)]];
+const detectKind=s=>{s=(s||'').toLowerCase();for(const [k,r] of KR)if(r.test(s))return k;return ''};
+const kindOf=o=>{
+  const m=meta[o.uid]||{};let k=m.kind;
+  if(!k||k==='auto')k=detectKind(o.title)||detectKind(o.desc)||detectKind(o.cat);
+  if(k==='none')k='';
+  let on=m.online;
+  if(!on||on==='auto')on=(/онлайн|online|zoom|teams|meet\.google|discord|skype|webex|дистанц/i.test((o.title||'')+' '+(o.desc||'')+' '+(o.loc||''))||/^https?:/i.test((o.loc||'').trim()))?'yes':'no';
+  return{k,online:on==='yes'};
+};
+const badges=o=>{const x=kindOf(o);return (x.k?`<span class="bd k-${x.k}">${KN[x.k]}</span>`:'<span class="bd k-none">＋ тип не указан</span>')+(x.online?'<span class="bd k-on">🌐 Онлайн</span>':'')};
+const fmtT=ms=>new Date(ms).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+const fmtD=d=>d.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+const fmtSize=n=>n>1048576?(n/1048576).toFixed(1)+' МБ':Math.max(1,Math.round(n/1024))+' КБ';
+
+/* ---------- storage ---------- */
+const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+          set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let events=ls.get('sched_events',[]);
+let notes=ls.get('sched_notes',{});
+let meta=ls.get('sched_meta',{});
+let dbp=null;
+const db=()=>dbp||(dbp=new Promise((res,rej)=>{try{const r=indexedDB.open('sched_files',1);
+  r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}}));
+const idb=async(mode,fn)=>{const d=await db();return new Promise((res,rej)=>{const t=d.transaction('f',mode);const rq=fn(t.objectStore('f'));
+  t.oncomplete=()=>res(rq&&rq.result);t.onerror=()=>rej(t.error)})};
+
+/* ---------- ICS parsing ---------- */
+const unesc=s=>s.replace(/\\n/gi,'\n').replace(/\\([,;\\])/g,'$1');
+function pDate(v){
+  let m=v.match(/^(\d{4})(\d\d)(\d\d)$/);
+  if(m)return{ms:new Date(+m[1],m[2]-1,+m[3]).getTime(),allDay:true};
+  m=v.match(/^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)(\d\d)(Z?)$/);
+  if(!m)return null;
+  const a=m.slice(1,7).map(Number);
+  return{ms:m[7]?Date.UTC(a[0],a[1]-1,a[2],a[3],a[4],a[5]):new Date(a[0],a[1]-1,a[2],a[3],a[4],a[5]).getTime()};
+}
+function parseICS(txt){
+  const lines=txt.replace(/\r?\n[ \t]/g,'').split(/\r?\n/);
+  const out=[];let cur=null,al=false;
+  for(const ln of lines){
+    if(ln==='BEGIN:VALARM'){al=true;continue}
+    if(ln==='END:VALARM'){al=false;continue}
+    if(al)continue;
+    if(ln==='BEGIN:VEVENT'){cur={ex:[]};continue}
+    if(ln==='END:VEVENT'){
+      if(cur&&cur.start!=null){
+        if(cur.end==null)cur.end=cur.start+(cur.allDay?86400000:3600000);
+        if(!cur.uid)cur.uid=(cur.title||'x')+cur.start;
+        out.push(cur);
+      }
+      cur=null;continue;
+    }
+    if(!cur)continue;
+    const i=ln.indexOf(':');if(i<0)continue;
+    const name=ln.slice(0,i).split(';')[0].toUpperCase(),val=ln.slice(i+1);
+    if(name==='SUMMARY')cur.title=unesc(val);
+    else if(name==='LOCATION')cur.loc=unesc(val);
+    else if(name==='CATEGORIES')cur.cat=unesc(val);
+    else if(name==='DESCRIPTION')cur.desc=unesc(val);
+    else if(name==='UID')cur.uid=val;
+    else if(name==='DTSTART'){const d=pDate(val);if(d){cur.start=d.ms;cur.allDay=!!d.allDay}}
+    else if(name==='DTEND'){const d=pDate(val);if(d)cur.end=d.ms}
+    else if(name==='EXDATE'){val.split(',').forEach(x=>{const d=pDate(x);if(d)cur.ex.push(ymd(new Date(d.ms)))})}
+    else if(name==='RRULE'){
+      const r={};val.split(';').forEach(p=>{const [k,v]=p.split('=');r[k]=v});
+      if(r.BYDAY)r.BYDAY=r.BYDAY.split(',').map(x=>({SU:0,MO:1,TU:2,WE:3,TH:4,FR:5,SA:6})[x.replace(/[^A-Z]/g,'')]).filter(x=>x!=null);
+      if(r.UNTIL){const d=pDate(r.UNTIL);if(d)r.until=d.ms+(r.UNTIL.length===8?86400000:0)}
+      cur.rr=r;
+    }
+  }
+  return out;
+}
+
+/* ---------- recurrence expansion ---------- */
+function expand(ev,from,to){
+  const out=[],dur=ev.end-ev.start,st=new Date(ev.start);
+  const push=d=>{const s=d.getTime();if(ev.ex.includes(ymd(d)))return;
+    if(s<to&&s+dur>from)out.push({...ev,s,e:s+dur,key:ev.uid+'|'+ymd(d)})};
+  const r=ev.rr;
+  if(!r){push(st);return out}
+  const iv=+r.INTERVAL||1,max=r.COUNT?+r.COUNT:Infinity;let n=0;
+  const y=st.getFullYear(),m=st.getMonth(),dd=st.getDate(),h=st.getHours(),mi=st.getMinutes();
+  if(r.FREQ==='DAILY'){
+    for(let i=0;i<5000;i++){const d=new Date(y,m,dd+i*iv,h,mi);
+      if((r.until&&d.getTime()>r.until)||n>=max||d.getTime()>=to)break;n++;push(d)}
+  }else if(r.FREQ==='WEEKLY'){
+    const days=(r.BYDAY&&r.BYDAY.length?r.BYDAY:[st.getDay()]).slice().sort((a,b)=>(a+6)%7-(b+6)%7);
+    const mon=(st.getDay()+6)%7;
+    for(let w=0;w<1500;w++)for(const wd of days){
+      const d=new Date(y,m,dd-mon+w*7*iv+(wd+6)%7,h,mi);
+      if(d<st)continue;
+      if((r.until&&d.getTime()>r.until)||n>=max||d.getTime()>=to)return out;
+      n++;push(d);
+    }
+  }else push(st);
+  return out;
+}
+
+/* ---------- week view ---------- */
+let weekStart=mondayOf(new Date());
+function mondayOf(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate()-((d.getDay()+6)%7))}
+function render(){
+  const from=weekStart.getTime(),to=new Date(weekStart.getFullYear(),weekStart.getMonth(),weekStart.getDate()+7).getTime();
+  const endD=new Date(to-1);
+  $('#range').textContent=weekStart.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})+' – '+endD.toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'numeric'});
+  const box=$('#list');
+  if(!events.length){box.innerHTML='<div class="empty">Расписания пока нет.<br>Нажмите «Импорт .ics» и выберите файл календаря (или перетащите его сюда).</div>';return}
+  const occ=events.flatMap(e=>expand(e,from,to)).sort((a,b)=>a.s-b.s);
+  const todayK=ymd(new Date());let html='';
+  for(let i=0;i<7;i++){
+    const d=new Date(weekStart.getFullYear(),weekStart.getMonth(),weekStart.getDate()+i);
+    const k=ymd(d),items=occ.filter(o=>ymd(new Date(o.s))===k);
+    html+=`<div class="daycol">
+      <div class="day ${k===todayK?'today':''}"><b>${esc(fmtD(d))}</b>${k===todayK?'<span class="tb">сегодня</span>':''}</div>`;
+    if(!items.length){html+='<div class="free">Пар нет</div></div>';continue}
+    for(const o of items){
+      const nt=notes[o.key]||{};
+      const nL=(nt.links||[]).length,nF=(nt.files||[]).length;
+      html+=`<div class="les" data-k="${esc(o.key)}" style="--c:hsl(${hue(o.title)} 65% 52%)">
+        <div class="t">${o.allDay?'весь день':fmtT(o.s)+' – '+fmtT(o.e)}</div>
+        <div class="n">${esc(o.title||'Без названия')}</div>
+        <div class="bds">${badges(o)}</div>
+        ${o.loc?`<div class="loc">📍 ${esc(o.loc)}</div>`:''}
+        ${nt.text?`<div class="hw"><b>📝 ДЗ:</b> ${linkify(nt.text.length>200?nt.text.slice(0,200)+'…':nt.text)}</div>`:''}
+        ${(nL||nF)?`<div class="chips">${nL?'🔗 '+nL+' ':''}${nF?'📎 '+nF:''}</div>`:''}
+      </div>`;
+    }
+    html+='</div>';
+  }
+  box.innerHTML=html;
+  box.querySelectorAll('.les').forEach(el=>el.onclick=e=>{
+    if(e.target.closest('a'))return;
+    const key=el.dataset.k;openLesson(occ.find(o=>o.key===key));
+  });
+}
+
+/* ---------- колесо мыши: вверх → вправо, вниз → влево ---------- */
+(function(){
+  const list=$('#list');
+  list.addEventListener('wheel',e=>{
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    if(e.deltaY===0) return;
+    e.preventDefault();
+    list.scrollLeft -= e.deltaY * (e.deltaMode===1 ? 16 : 1);
+  }, {passive:false});
+})();
+
+/* ---------- lesson dialog ---------- */
+let curO=null,tmr=null;
+const note=()=>notes[curO.key]||(notes[curO.key]={text:'',links:[],files:[]});
+const save=()=>{ls.set('sched_notes',notes);touch()};
+function openLesson(o){
+  curO=o;const n=notes[o.key]||{};
+  $('#dT').textContent=o.title||'Без названия';
+  $('#dS').textContent=fmtD(new Date(o.s))+(o.allDay?'':', '+fmtT(o.s)+' – '+fmtT(o.e))+(o.loc?' · '+o.loc:'');
+  $('#dD').innerHTML=o.desc?linkify(o.desc):'';
+  $('#dHW').value=n.text||'';prevHW();drawLinks();drawFiles();
+  const mm=meta[o.uid]||{};$('#sKind').value=mm.kind||'auto';$('#sOn').value=mm.online||'auto';$('#dB').innerHTML=badges(o);
+  $('#dlg').showModal();
+}
+function prevHW(){const t=$('#dHW').value;$('#dPrev').innerHTML=/https?:\/\//.test(t)?linkify(t):''}
+$('#dHW').oninput=()=>{note().text=$('#dHW').value;prevHW();clearTimeout(tmr);tmr=setTimeout(save,300)};
+$('#close').onclick=()=>$('#dlg').close();
+const setMeta=(f,v)=>{const m=meta[curO.uid]||(meta[curO.uid]={});m[f]=v;ls.set('sched_meta',meta);touch();$('#dB').innerHTML=badges(curO)};
+$('#sKind').onchange=e=>setMeta('kind',e.target.value);
+$('#sOn').onchange=e=>setMeta('online',e.target.value);
+$('#dlg').onclose=()=>{
+  const n=notes[curO&&curO.key];
+  if(n&&!n.text&&!n.links.length&&!n.files.length)delete notes[curO.key];
+  save();render();
+};
+
+function drawLinks(){
+  const n=note();
+  $('#dLinks').innerHTML=n.links.map((l,i)=>`<div class="row"><a class="grow" href="${esc(l.u)}" target="_blank" rel="noopener noreferrer">🔗 ${esc(l.t||l.u)}</a><button class="x" data-i="${i}">✕</button></div>`).join('')||'<div class="free">Пока нет</div>';
+  $('#dLinks').querySelectorAll('button').forEach(b=>b.onclick=()=>{n.links.splice(+b.dataset.i,1);save();drawLinks()});
+}
+$('#lAdd').onclick=()=>{
+  let u=$('#lU').value.trim();if(!u)return;
+  if(!/^[a-z][a-z0-9+.-]*:/i.test(u))u='https://'+u;
+  if(!/^https?:/i.test(u)){alert('Нужна ссылка http:// или https://');return}
+  note().links.push({t:$('#lT').value.trim(),u});save();
+  $('#lT').value='';$('#lU').value='';drawLinks();
+};
+
+async function drawFiles(){
+  const n=note();const box=$('#dFiles');
+  if(!n.files.length){box.innerHTML='<div class="free">Пока нет</div>';return}
+  box.innerHTML='';
+  for(const f of n.files){
+    const row=document.createElement('div');
+    row.innerHTML=`<div class="row"><span class="grow">📎 ${esc(f.name)} <small>${fmtSize(f.size)}</small></span>
+      <button class="o">Открыть</button><a class="btn dl" style="text-decoration:none;color:inherit">Скачать</a><button class="x del">✕</button></div><div class="pv"></div>`;
+    box.appendChild(row);
+    let blob=null;try{blob=await idb('readonly',s=>s.get(f.id))}catch(e){}
+    const url=blob?URL.createObjectURL(blob):null;
+    const dl=row.querySelector('.dl');
+    if(url){dl.href=url;dl.download=f.name;
+      row.querySelector('.o').onclick=()=>window.open(url,'_blank');
+      if(/^image\//.test(f.type))row.querySelector('.pv').innerHTML=`<img class="thumb" src="${url}" alt="">`;
+    }else{row.querySelector('.o').disabled=true;dl.style.opacity=.4}
+    row.querySelector('.del').onclick=async()=>{
+      if(!confirm('Удалить файл «'+f.name+'»?'))return;
+      try{await idb('readwrite',s=>s.delete(f.id))}catch(e){}
+      n.files=n.files.filter(x=>x.id!==f.id);save();drawFiles();
+    };
+  }
+}
+$('#fIn').onchange=async e=>{
+  const n=note();
+  for(const file of e.target.files){
+    const id=crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random();
+    try{await idb('readwrite',s=>s.put(file,id));n.files.push({id,name:file.name,size:file.size,type:file.type})}
+    catch(err){alert('Не удалось сохранить «'+file.name+'» (возможно, не хватает места)')}
+  }
+  e.target.value='';save();drawFiles();
+};
+
+/* ---------- import / nav ---------- */
+async function importFile(file){
+  if(!file)return;
+  const list=parseICS(await file.text());
+  if(!list.length){alert('В файле не найдено событий (VEVENT).');return}
+  const map=new Map(events.map(e=>[e.uid,e]));
+  list.forEach(e=>map.set(e.uid,e));
+  events=[...map.values()];ls.set('sched_events',events);
+  const now=new Date(),from=mondayOf(now).getTime();
+  const hasThis=events.some(e=>expand(e,from,from+7*864e5).length);
+  if(!hasThis){const first=Math.min(...events.map(e=>e.start));weekStart=mondayOf(new Date(first))}
+  touch();
+  render();
+  $('#list').scrollLeft=0;
+}
+$('#ics').onchange=e=>{importFile(e.target.files[0]);e.target.value=''};
+addEventListener('dragover',e=>e.preventDefault());
+addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f&&/\.ics$/i.test(f.name))importFile(f)});
+const shift=n=>{weekStart=new Date(weekStart.getFullYear(),weekStart.getMonth(),weekStart.getDate()+n*7);render();$('#list').scrollLeft=0};
+$('#prev').onclick=()=>shift(-1);$('#next').onclick=()=>shift(1);
+$('#today').onclick=()=>{weekStart=mondayOf(new Date());render();$('#list').scrollLeft=0};
+$('#wipe').onclick=async()=>{
+  if(!confirm('Удалить расписание, заметки и все файлы (только в этом браузере)?'))return;
+  events=[];notes={};meta={};ls.set('sched_events',[]);ls.set('sched_notes',{});ls.set('sched_meta',{});
+  try{await idb('readwrite',s=>s.clear())}catch(e){}
+  // чтобы не подтянуть обратно с облака — считаем, что "локально всё синхронизировано"
+  lastLocalEdit = lastSyncedEdit = Date.now();
+  localStorage.setItem('last_edit', String(lastLocalEdit));
+  localStorage.setItem('last_sync', String(lastSyncedEdit));
+  render();
+};
+
+/* ============================================================
+   СИНХРОНИЗАЦИЯ И РЕЗЕРВНЫЕ КОПИИ
+   ============================================================ */
+
+// --- состояние ---
+const CLOUD_KEY='gh_cloud';
+let cloud={token:'',gistId:'',auto:false};
+try{Object.assign(cloud, JSON.parse(localStorage.getItem(CLOUD_KEY)||'{}'))}catch(e){}
+const saveCloud=()=>localStorage.setItem(CLOUD_KEY, JSON.stringify(cloud));
+
+let lastLocalEdit=+localStorage.getItem('last_edit')||0;
+let lastSyncedEdit=+localStorage.getItem('last_sync')||0;
+let pushTimer=null;
+
+function touch(){
+  lastLocalEdit=Date.now();
+  localStorage.setItem('last_edit', String(lastLocalEdit));
+  if(cloud.auto && cloud.token){
+    clearTimeout(pushTimer);
+    pushTimer=setTimeout(()=>{doPush().catch(()=>{})}, 1500);
+  }
+}
+// дослать изменения при уходе со страницы
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden && pushTimer){
+    clearTimeout(pushTimer);
+    pushTimer=null;
+    doPush().catch(()=>{});
+  }
+});
+
+function setStatus(msg){
+  const a=$('#ghStatus'); if(a) a.textContent=msg;
+  const b=$('#syncStatus'); if(b) b.textContent=msg;
+  const c=$('#bkStatus'); if(c) c.textContent=msg;
+}
+
+// --- утилиты для файлов ---
+function blobToBase64(blob){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(String(r.result).split(',')[1]||'');
+    r.onerror=()=>rej(r.error);
+    r.readAsDataURL(blob);
+  });
+}
+function base64ToBlob(b64,type){
+  const bin=atob(b64);
+  const arr=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
+  return new Blob([arr],{type:type||'application/octet-stream'});
+}
+async function collectFiles(){
+  const ids=new Set();
+  for(const k in notes) for(const f of (notes[k].files||[])) ids.add(f.id);
+  const out={};
+  for(const id of ids){
+    try{
+      const blob=await idb('readonly',s=>s.get(id));
+      if(!blob)continue;
+      let metaFile=null;
+      for(const k in notes) for(const f of (notes[k].files||[])) if(f.id===id) metaFile=f;
+      out[id]={name:metaFile?.name,size:metaFile?.size,type:metaFile?.type||blob.type,data:await blobToBase64(blob)};
+    }catch(e){console.warn('collectFiles', id, e)}
+  }
+  return out;
+}
+async function restoreFiles(filesObj){
+  if(!filesObj)return;
+  for(const id in filesObj){
+    const f=filesObj[id];
+    try{
+      const blob=base64ToBlob(f.data, f.type);
+      await idb('readwrite',s=>s.put(blob,id));
+    }catch(e){console.warn('restoreFiles', id, e)}
+  }
+}
+
+async function buildPayload(){
+  return {
+    version:1,
+    updatedAt:lastLocalEdit,
+    events, notes, meta,
+    files:await collectFiles()
+  };
+}
+async function applyPayload(data){
+  if(Array.isArray(data.events)){events=data.events; ls.set('sched_events',events)}
+  if(data.notes&&typeof data.notes==='object'){notes=data.notes; ls.set('sched_notes',notes)}
+  if(data.meta&&typeof data.meta==='object'){meta=data.meta; ls.set('sched_meta',meta)}
+  if(data.files) await restoreFiles(data.files);
+}
+
+// --- GitHub Gist API ---
+async function ghFetch(url, opts={}){
+  opts.headers=Object.assign({
+    'Authorization':'Bearer '+cloud.token,
+    'Accept':'application/vnd.github+json'
+  }, opts.headers||{});
+  return fetch(url, opts);
+}
+async function resolveGist(){
+  if(cloud.gistId) return cloud.gistId;
+  if(!cloud.token) return null;
+  const r=await ghFetch('https://api.github.com/gists?per_page=100');
+  if(!r.ok) throw new Error('gists: '+r.status);
+  const list=await r.json();
+  for(const g of list){
+    if(g.files && g.files['schedule.json']){ cloud.gistId=g.id; saveCloud(); return g.id; }
+  }
+  return null;
+}
+async function ghPull(){
+  if(!cloud.token||!cloud.gistId) return null;
+  const r=await ghFetch('https://api.github.com/gists/'+cloud.gistId+'?t='+Date.now());
+  if(r.status===404) return null;
+  if(!r.ok) throw new Error('pull: '+r.status);
+  const g=await r.json();
+  const f=g.files && g.files['schedule.json'];
+  if(!f) return null;
+  return JSON.parse(f.content);
+}
+async function ghPush(data){
+  if(!cloud.token) throw new Error('нет токена');
+  const isNew=!cloud.gistId;
+  const body={files:{'schedule.json':{content:JSON.stringify(data)}}};
+  if(isNew){body.description='Расписание — резервная копия';body.public=false}
+  const r=await ghFetch(isNew?'https://api.github.com/gists':'https://api.github.com/gists/'+cloud.gistId,{
+    method:isNew?'POST':'PATCH',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(body)
+  });
+  if(!r.ok){
+    const t=await r.text();
+    throw new Error('push: '+r.status+' '+t.slice(0,180));
+  }
+  const g=await r.json();
+  if(isNew){cloud.gistId=g.id; saveCloud();}
+  return g;
+}
+
+async function doPush(){
+  if(!cloud.token||!cloud.gistId) return;
+  if(lastLocalEdit<=lastSyncedEdit) return;
+  const data=await buildPayload();
+  data.updatedAt=lastLocalEdit;
+  await ghPush(data);
+  lastSyncedEdit=lastLocalEdit;
+  localStorage.setItem('last_sync', String(lastSyncedEdit));
+  setStatus('✓ Сохранено в облако '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}));
+}
+
+async function syncNow(){
+  if(!cloud.token){setStatus('⚠ Введите токен GitHub');return}
+  try{
+    setStatus('⏳ Синхронизация…');
+    const found=await resolveGist();
+    if(!found){
+      if(events.length||Object.keys(notes).length){
+        await doPush();
+        setStatus('✓ Создан гист. Скопируйте токен на другом устройстве — данные придут автоматически.');
+      }else{
+        setStatus('ℹ Пока нечего загружать — импортируйте .ics или добавьте заметки.');
+      }
+      return;
+    }
+    // сначала выгружаем свои несинхронизированные правки (если есть)
+    if(lastLocalEdit>lastSyncedEdit) await doPush();
+    const data=await ghPull();
+    if(data && (data.updatedAt||0) > lastSyncedEdit){
+      await applyPayload(data);
+      lastLocalEdit=data.updatedAt;
+      lastSyncedEdit=data.updatedAt;
+      localStorage.setItem('last_edit', String(lastLocalEdit));
+      localStorage.setItem('last_sync', String(lastSyncedEdit));
+      render();
+      setStatus('✓ Загружено с облака '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}));
+    }else{
+      setStatus('✓ Всё актуально');
+    }
+  }catch(e){
+    setStatus('✗ '+e.message);
+    console.error(e);
+  }
+}
+
+async function pullOnLoad(){
+  if(!cloud.auto||!cloud.token) return;
+  await syncNow();
+}
+
+/* --- UI: резервная копия --- */
+$('#btnBackup').onclick=()=>{ $('#bkStatus').textContent=''; $('#dlgBackup').showModal(); };
+$('#bkClose').onclick=()=>$('#dlgBackup').close();
+$('#bkExp').onclick=async()=>{
+  try{
+    setStatus('⏳ Готовим файл…');
+    const data=await buildPayload();
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='schedule-backup-'+new Date().toISOString().slice(0,10)+'.json';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),5000);
+    setStatus('✓ Файл скачан');
+  }catch(e){setStatus('✗ '+e.message)}
+};
+$('#bkInp').onchange=async e=>{
+  const f=e.target.files[0]; e.target.value='';
+  if(!f) return;
+  try{
+    const data=JSON.parse(await f.text());
+    if(!confirm('Заменить текущие данные данными из файла?')) return;
+    await applyPayload(data);
+    lastLocalEdit=Date.now();
+    localStorage.setItem('last_edit', String(lastLocalEdit));
+    render();
+    setStatus('✓ Импортировано');
+    setTimeout(()=>{$('#dlgBackup').close()}, 500);
+  }catch(err){setStatus('✗ '+err.message)}
+};
+
+/* --- UI: синхронизация --- */
+$('#btnCloud').onclick=()=>{
+  $('#ghToken').value=cloud.token||'';
+  $('#ghGist').value=cloud.gistId||'';
+  $('#ghAuto').checked=!!cloud.auto;
+  $('#ghStatus').textContent='';
+  $('#dlgCloud').showModal();
+};
+$('#ghClose').onclick=()=>{
+  cloud.token=$('#ghToken').value.trim();
+  cloud.gistId=$('#ghGist').value.trim();
+  cloud.auto=$('#ghAuto').checked;
+  saveCloud();
+  $('#dlgCloud').close();
+};
+$('#ghSync').onclick=async()=>{
+  cloud.token=$('#ghToken').value.trim();
+  cloud.gistId=$('#ghGist').value.trim();
+  cloud.auto=$('#ghAuto').checked;
+  saveCloud();
+  await syncNow();
+};
+
+/* --- авто-подтягивание при загрузке --- */
+render();
+if(cloud.auto && cloud.token){
+  // отложим, чтобы первый рендер успел
+  setTimeout(()=>{pullOnLoad().catch(()=>{})}, 100);
+}
+</script>
+</body>
+</html>
