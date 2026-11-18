@@ -9,18 +9,18 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--card:#212120;--tx:#ececE8;--mut:#9a9a94;--ac:#6c9bff;--acbg:#1f2a44;--bd:#34342f;--hw:#3a3015;--hwtx:#f0cd7a;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#161615;--card:#212120;--tx:#ececE8;--mut:#9a9a94;--ac:#6c9bff;--acbg:#1f2a44;--bd:#34342f;--hw:#3a3015;--hwtx:#f0cd7a;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif} /* Чуть уменьшил базовый шрифт */
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 h1{font-size:1.3rem;margin:0 0 12px}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
 .bar .lbl{flex:1;font-weight:600;text-align:center;min-width:140px}
 button,.btn{font:inherit;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:6px 12px;cursor:pointer}
 button:hover,.btn:hover{border-color:var(--ac)}
 .pri{background:var(--ac);color:#fff;border-color:var(--ac)}
-.les{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;margin-bottom:6px;cursor:pointer;transition:transform .1s, border-color .1s}
+.les{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;margin-bottom:6px;cursor:pointer;transition:transform .1s, border-color .1s;border-left:4px solid var(--c,var(--ac))}
 .les:hover{border-color:var(--ac);transform:translateY(-1px)}
 .les .t{color:var(--mut);font-size:.75rem;display:inline-block;background:color-mix(in srgb,var(--c,var(--ac)) 14%,transparent);color:var(--c,var(--ac));font-weight:600;padding:2px 8px;border-radius:99px;margin-bottom:4px}
 .les .n{font-weight:600;font-size:.95rem;line-height:1.25}
-.les .loc{color:var(--mut);font-size:.75rem;margin-top:4px}
+.les .loc{color:var(--mut);font-size:.75rem;margin-top:4px;word-break:break-word}
 .hw{margin-top:6px;background:var(--hw);color:var(--hwtx);border-left:3px solid #f5b83d;border-radius:6px;padding:6px 8px;font-size:.8rem;white-space:pre-wrap;word-break:break-word;line-height:1.35}
 .chips{margin-top:4px;font-size:.75rem;color:var(--mut);display:flex;gap:8px}
 .empty{border:2px dashed var(--bd);border-radius:14px;padding:28px;text-align:center;color:var(--mut)}
@@ -43,15 +43,15 @@ a{color:var(--ac)}
 .thumb{max-width:100%;max-height:200px;border-radius:8px;margin:4px 0;display:block}
 .foot{margin-top:24px;font-size:.8rem;color:var(--mut)}
 
-/* --- СВЕТЛАЯ/ТЁМНАЯ ТЕМА (чуть контрастнее) --- */
+/* --- СВЕТЛАЯ/ТЁМНАЯ ТЕМА --- */
 :root{--bg:#f4f5fa;--card:#fff;--tx:#1f2430;--mut:#6b7280;--ac:#5b6cff;--acbg:#eceeff;--bd:#e6e8f0;--hw:#fff6dc;--hwtx:#6b4b00;--sh:0 1px 2px rgba(20,24,40,.05),0 2px 8px rgba(20,24,40,.04)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1b1f2b;--tx:#eceef6;--mut:#9aa1b5;--ac:#8c98ff;--acbg:#262b45;--bd:#2b3044;--hw:#3a3116;--hwtx:#f2d68a;--sh:0 1px 2px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2)}}
 :root[data-theme="dark"]{--bg:#12141c;--card:#1b1f2b;--tx:#eceef6;--mut:#9aa1b5;--ac:#8c98ff;--acbg:#262b45;--bd:#2b3044;--hw:#3a3116;--hwtx:#f2d68a;--sh:0 1px 2px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2)}
 
-/* --- ГЛАВНЫЙ КОНТЕЙНЕР (на всю ширину) --- */
+/* --- ГЛАВНЫЙ КОНТЕЙНЕР --- */
 .wrap{
   width: 100%;
-  max-width: 100%; /* Убрал жесткое ограничение в 820px */
+  max-width: 100%;
   margin: 0 auto;
   padding: 16px 20px 56px;
 }
@@ -62,7 +62,7 @@ button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;transition:borde
 .pri{background:var(--ac);color:#fff;border-color:var(--ac)}
 .pri:hover{filter:brightness(1.08)}
 
-/* --- СЕТКА ДНЕЙ --- */
+/* --- СЕТКА ДНЕЙ (ДЕСКТОП) --- */
 #list{
   display:flex;
   align-items:flex-start;
@@ -79,11 +79,11 @@ button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;transition:borde
 #list::-webkit-scrollbar-track{background:transparent}
 
 .daycol{
-  flex:0 0 270px; /* Сделал колонку уже (было 320px) */
+  flex:0 0 270px;
   min-width:0;
   display:flex;
   flex-direction:column;
-  gap:6px; /* Уменьшил отступ между карточками внутри дня */
+  gap:6px;
 }
 .day{
   display:flex;
@@ -98,7 +98,7 @@ button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;transition:borde
 .tb{background:var(--ac);color:#fff;font-size:.65rem;padding:2px 8px;border-radius:99px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 .free{padding:10px 14px;border:1px dashed var(--bd);border-radius:10px;text-align:center;color:var(--mut);font-size:.85rem}
 
-/* --- БЕЙДЖИ (тип занятия) --- */
+/* --- БЕЙДЖИ --- */
 .bds{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .bd{--kc:#3b6ef0;display:inline-block;font-size:.65rem;font-weight:700;padding:1px 6px;border-radius:99px;color:var(--kc);background:color-mix(in srgb,var(--kc) 15%,transparent);border:1px solid color-mix(in srgb,var(--kc) 35%,transparent);white-space:nowrap}
 .k-lec{--kc:#3b6ef0}.k-prac{--kc:#0f9d6b}.k-lab{--kc:#c0701a}.k-sem{--kc:#8a4fd6}.k-exam{--kc:#d6364d}.k-on{--kc:#0e8fb0}
@@ -108,11 +108,36 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 .k-none{--kc:#8a8f9c;background:transparent;border-style:dashed;font-weight:600}
 .empty{flex:1 1 auto;align-self:center;width:100%}
 
-/* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
-@media (max-width:520px){
-  .bar .lbl{order:-1;flex-basis:100%;text-align:left;font-size:1rem}
-  .wrap{padding:12px 12px 48px}
-  .daycol{flex-basis:min(80vw,280px)} /* На телефоне колонка занимает 80% ширины экрана, чтобы было видно край следующего дня */
+/* --- МОБИЛЬНАЯ ВЕРСИЯ (ВЕРТИКАЛЬНАЯ) --- */
+@media (max-width: 768px) {
+  .wrap { padding: 10px 10px 40px; }
+  
+  #list {
+    flex-direction: column;
+    overflow-x: visible;
+    overflow-y: visible;
+    gap: 0;
+  }
+  .daycol {
+    flex: 1 1 auto;
+    width: 100%;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .bar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .bar .lbl {
+    order: -1;
+    flex-basis: 100%;
+    text-align: left;
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  .les {
+    padding: 10px 12px;
+  }
 }
 
 /* --- СИНХРОНИЗАЦИЯ UI --- */
@@ -324,43 +349,94 @@ function expand(ev,from,to){
 
 let weekStart=mondayOf(new Date());
 function mondayOf(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate()-((d.getDay()+6)%7))}
+
+/* ЛОГИКА ОБЪЕДИНЕНИЯ ПАР */
+function mergeEvents(items){
+  if(!items.length) return [];
+  const sorted = [...items].sort((a,b) => a.s - b.s);
+  const merged = [];
+  let cur = { ...sorted[0], keys: [sorted[0].key], locs: sorted[0].loc ? [sorted[0].loc] : [], origs: [sorted[0]] };
+  
+  for(let i=1; i<sorted.length; i++){
+    const next = sorted[i];
+    const sameTitle = cur.title === next.title;
+    const sameKind = kindOf(cur).k === kindOf(next).k;
+    // Склеиваем, если одинаковое название, тип и перерыв не больше 15 минут
+    const isAdjacent = next.s <= cur.e + 15 * 60000;
+    
+    if(sameTitle && sameKind && isAdjacent){
+      cur.e = Math.max(cur.e, next.e);
+      cur.keys.push(next.key);
+      cur.origs.push(next);
+      if(next.loc && !cur.locs.includes(next.loc)) cur.locs.push(next.loc);
+    } else {
+      merged.push(cur);
+      cur = { ...next, keys: [next.key], locs: next.loc ? [next.loc] : [], origs: [next] };
+    }
+  }
+  merged.push(cur);
+  return merged;
+}
+
 function render(){
   const from=weekStart.getTime(),to=new Date(weekStart.getFullYear(),weekStart.getMonth(),weekStart.getDate()+7).getTime();
   const endD=new Date(to-1);
   $('#range').textContent=weekStart.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})+' – '+endD.toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'numeric'});
   const box=$('#list');
-  if(!events.length){box.innerHTML='<div class="empty">Расписания пока нет.<br>Нажмите «Импорт .ics» и выберите файл календаря (или перетащите его сюда).</div>';return}
+  if(!events.length){box.innerHTML='<div class="empty">Расписания пока нет.<br>Нажмите «Импорт .ics» и выберите файл календаря.</div>';return}
+  
   const occ=events.flatMap(e=>expand(e,from,to)).sort((a,b)=>a.s-b.s);
-  const todayK=ymd(new Date());let html='';
+  const todayK=ymd(new Date());
+  let html='';
+  
   for(let i=0;i<7;i++){
     const d=new Date(weekStart.getFullYear(),weekStart.getMonth(),weekStart.getDate()+i);
-    const k=ymd(d),items=occ.filter(o=>ymd(new Date(o.s))===k);
+    const k=ymd(d);
+    let items=occ.filter(o=>ymd(new Date(o.s))===k);
+    
+    // Применяем объединение
+    items = mergeEvents(items);
+    
     html+=`<div class="daycol"><div class="day ${k===todayK?'today':''}"><b>${esc(fmtD(d))}</b>${k===todayK?'<span class="tb">сегодня</span>':''}</div>`;
     if(!items.length){html+='<div class="free">Пар нет</div></div>';continue}
+    
     for(const o of items){
-      const nt=notes[o.key]||{};const nL=(nt.links||[]).length,nF=(nt.files||[]).length;
-      html+=`<div class="les" data-k="${esc(o.key)}" style="--c:hsl(${hue(o.title)} 65% 52%)">
+      let nL=0, nF=0, hwText='';
+      // Собираем заметки из всех объединенных ключей
+      for(const kk of o.keys){
+        const n = notes[kk] || {};
+        nL += (n.links||[]).length;
+        nF += (n.files||[]).length;
+        if(n.text && !hwText) hwText = n.text;
+      }
+      const locs = o.locs.join(', ');
+      
+      html+=`<div class="les" data-keys="${esc(o.keys.join(','))}" style="--c:hsl(${hue(o.title)} 65% 52%)">
         <div class="t">${o.allDay?'весь день':fmtT(o.s)+' – '+fmtT(o.e)}</div>
         <div class="n">${esc(o.title||'Без названия')}</div>
         <div class="bds">${badges(o)}</div>
-        ${o.loc?`<div class="loc">📍 ${esc(o.loc)}</div>`:''}
-        ${nt.text?`<div class="hw"><b>📝 ДЗ:</b> ${linkify(nt.text.length>200?nt.text.slice(0,200)+'…':nt.text)}</div>`:''}
+        ${locs?`<div class="loc">📍 ${esc(locs)}</div>`:''}
+        ${hwText?`<div class="hw"><b>📝 ДЗ:</b> ${linkify(hwText.length>200?hwText.slice(0,200)+'…':hwText)}</div>`:''}
         ${(nL||nF)?`<div class="chips">${nL?'🔗 '+nL+' ':''}${nF?'📎 '+nF:''}</div>`:''}
       </div>`;
     }
     html+='</div>';
   }
   box.innerHTML=html;
+  
+  // Клик по объединенной карточке открывает первое событие из группы
   box.querySelectorAll('.les').forEach(el=>el.onclick=e=>{
     if(e.target.closest('a'))return;
-    const key=el.dataset.k;openLesson(occ.find(o=>o.key===key));
+    const keys = el.dataset.keys.split(',');
+    openLesson(occ.find(o=>o.key===keys[0]));
   });
 }
 
-/* колесо мыши */
+/* колесо мыши (только для ПК) */
 (function(){
   const list=$('#list');
   list.addEventListener('wheel',e=>{
+    if(window.innerWidth <= 768) return; // На телефоне отключаем перехват
     if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
     if(e.deltaY===0) return;
     e.preventDefault();
