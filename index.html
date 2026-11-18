@@ -17,8 +17,8 @@ button,.btn{font:inherit;background:var(--card);color:var(--tx);border:1px solid
 button:hover,.btn:hover{border-color:var(--ac)}
 button:active,.btn:active{transform:scale(0.97);}
 .pri{background:var(--ac);color:#fff;border-color:var(--ac)}
-.les{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:transform .1s, border-color .1s;border-left:4px solid var(--c,var(--ac))}
-.les:hover{border-color:var(--ac);transform:translateY(-1px)}
+.les{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:all .2s ease;border-left:4px solid var(--c,var(--ac))}
+.les:hover{border-color:var(--ac)}
 .les .t{color:var(--mut);font-size:.75rem;display:inline-block;background:color-mix(in srgb,var(--c,var(--ac)) 14%,transparent);color:var(--c,var(--ac));font-weight:600;padding:2px 8px;border-radius:99px;margin-bottom:6px}
 .les .n{font-weight:600;font-size:.95rem;line-height:1.25}
 .les .loc{color:var(--mut);font-size:.75rem;margin-top:4px;word-break:break-word}
@@ -62,225 +62,155 @@ a{color:var(--ac)}
   border-color: color-mix(in srgb, var(--ac) 35%, transparent);
 }
 
-/* --- ГЛАВНЫЙ КОНТЕЙНЕР --- */
+/* =========================================
+   ДЕСКТОПНАЯ ВЕРСИЯ (ПО УМОЛЧАНИЮ)
+   ========================================= */
 .wrap{
   width: 100%;
-  max-width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 16px 20px 100px;
+  padding: 24px 32px 100px;
 }
-h1{font-size:1.5rem;letter-spacing:-.02em;margin:4px 0 16px}
-.bar{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:8px 12px;box-shadow:var(--sh);gap:8px}
-.bar .lbl{font-size:1rem}
-button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;box-shadow:0 1px 1px rgba(0,0,0,.02)}
-.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
-.pri:hover{filter:brightness(1.08)}
+h1{font-size:1.6rem;letter-spacing:-.02em;margin:0 0 20px;font-weight:800;}
+.bar{
+  position: sticky;
+  top: 20px;
+  z-index: 50;
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  padding: 12px 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.05);
+  gap: 12px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bar{box-shadow: 0 4px 20px rgba(0,0,0,.25);}}
+:root[data-theme="dark"] .bar{box-shadow: 0 4px 20px rgba(0,0,0,.25);}
 
-/* --- СЕТКА ДНЕЙ (ДЕСКТОП) --- */
+.bar .lbl{font-size:1.15rem;font-weight:700;}
+button,.btn{border-radius:12px;padding:10px 18px;font-weight:600;box-shadow:var(--sh);}
+.pri{background:var(--ac);color:#fff;border-color:var(--ac);}
+.pri:hover{filter:brightness(1.08);}
+
 #list{
   display:flex;
   align-items:flex-start;
-  gap:12px;
+  gap:24px;
   overflow-x:auto;
   overflow-y:hidden;
-  padding:4px 4px 16px;
+  padding:10px 4px 24px;
+  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-x:contain;
-  scroll-behavior:smooth;
 }
-#list::-webkit-scrollbar{height:8px}
+#list::-webkit-scrollbar{height:10px}
 #list::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
+#list::-webkit-scrollbar-thumb:hover{background:var(--mut)}
 #list::-webkit-scrollbar-track{background:transparent}
 
 .daycol{
-  flex:0 0 270px;
+  flex:0 0 320px;
+  scroll-snap-align: start;
   min-width:0;
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:12px;
+  background: color-mix(in srgb, var(--bd) 20%, var(--bg));
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  padding: 16px;
 }
 .day{
   display:flex;
   align-items:center;
-  gap:8px;
-  margin:4px 0 6px;
-  font-size:.95rem;
+  gap:10px;
+  margin:0 0 4px;
+  font-size:1.05rem;
   color:var(--tx);
   font-weight:700;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--bd) 60%, transparent);
 }
 .day.today{color:var(--ac)}
-.tb{background:var(--ac);color:#fff;font-size:.65rem;padding:2px 8px;border-radius:99px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.free{padding:10px 14px;border:1px dashed var(--bd);border-radius:10px;text-align:center;color:var(--mut);font-size:.85rem}
+.tb{background:var(--ac);color:#fff;font-size:.7rem;padding:3px 10px;border-radius:99px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
 
-/* --- БЕЙДЖИ --- */
-.bds{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-.bd{--kc:#3b6ef0;display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:99px;color:var(--kc);background:color-mix(in srgb,var(--kc) 15%,transparent);border:1px solid color-mix(in srgb,var(--kc) 35%,transparent);white-space:nowrap}
+.free{padding:16px;border:1px dashed var(--bd);border-radius:14px;text-align:center;color:var(--mut);font-size:.9rem;}
+.les{
+  padding:16px;
+  border-radius:16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.03);
+}
+.les:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .les:hover{box-shadow: 0 8px 24px rgba(0,0,0,.3);}}
+:root[data-theme="dark"] .les:hover{box-shadow: 0 8px 24px rgba(0,0,0,.3);}
+
+.les .t{font-size:.8rem;padding:3px 10px;margin-bottom:8px;}
+.les .n{font-size:1.05rem;}
+.les .loc{font-size:.85rem;margin-top:6px;}
+.bds{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.bd{--kc:#3b6ef0;display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:99px;color:var(--kc);background:color-mix(in srgb,var(--kc) 15%,transparent);border:1px solid color-mix(in srgb,var(--kc) 35%,transparent);white-space:nowrap}
 .k-lec{--kc:#3b6ef0}.k-prac{--kc:#0f9d6b}.k-lab{--kc:#c0701a}.k-sem{--kc:#8a4fd6}.k-exam{--kc:#d6364d}.k-on{--kc:#0e8fb0}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bd{color:color-mix(in srgb,var(--kc) 65%,#fff)}}
 :root[data-theme="dark"] .bd{color:color-mix(in srgb,var(--kc) 65%,#fff)}
-select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;font-size:.9rem}
+select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:10px;font-size:.9rem}
 .k-none{--kc:#8a8f9c;background:transparent;border-style:dashed;font-weight:600}
 .empty{flex:1 1 auto;align-self:center;width:100%}
-
-/* --- МОБИЛЬНАЯ ВЕРСИЯ (СНИЗУ ШТОРКА, УДОБНЫЕ КАРТОЧКИ) --- */
-@media (max-width: 768px) {
-  body { -webkit-tap-highlight-color: transparent; }
-  .wrap { padding: 12px 12px 100px; }
-  
-  #list { flex-direction: column; overflow-x: visible; overflow-y: visible; gap: 0; }
-  .daycol { flex: 1 1 auto; width: 100%; gap: 8px; margin-bottom: 20px; }
-  
-  /* Шапка */
-  .bar { flex-direction: column; align-items: stretch; padding: 12px; border-radius: 16px; gap: 10px; }
-  .bar .lbl { order: -1; text-align: center; font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
-  
-  .bar-row-1 { display: flex; gap: 8px; }
-  .bar-row-1 button { flex: 1; justify-content: center; padding: 10px 0; font-size: 1rem; }
-  
-  .bar-row-2 { display: flex; gap: 8px; }
-  .bar-row-2 .btn { flex: 1; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 1rem; }
-  
-  /* Карточка */
-  .les { padding: 14px 16px; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); margin-bottom: 10px; }
-  .les .t { font-size: 0.8rem; padding: 4px 10px; margin-bottom: 8px; }
-  .les .n { font-size: 1.1rem; margin-bottom: 4px; }
-  .les .loc { font-size: 0.85rem; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
-  
-  /* Заметки */
-  .hw { padding: 10px 12px; border-radius: 8px; font-size: 0.85rem; margin-top: 10px; }
-  
-  /* Бейджи */
-  .bds { gap: 6px; margin-top: 8px; }
-  .bd { font-size: 0.7rem; padding: 3px 8px; }
-  
-  /* Диалоговые окна - Эффект "Нижней шторки" (Bottom Sheet) */
-  dialog { 
-    width: 100% !important; 
-    max-width: 100% !important; 
-    margin: auto auto 0 auto !important; 
-    border-radius: 24px 24px 0 0 !important; 
-    border-bottom: none; 
-    padding: 20px 16px calc(20px + env(safe-area-inset-bottom)) !important;
-    max-height: 90vh;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-    animation: slideUp 0.25s ease-out forwards;
-  }
-  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  
-  /* Увеличиваем инпуты для iOS (чтобы не было зума) */
-  textarea, input[type=text], input[type=password], input[type=date], select { font-size: 16px !important; padding: 12px !important; }
-  
-  /* Форма напоминаний (в мобильной версии в столбик) */
-  .rem-form { display: flex; flex-direction: column; gap: 10px; }
-  .rem-form input { width: 100%; }
-  .rem-form button { width: 100%; padding: 12px; font-size: 1rem; }
-  
-  /* Кнопки в диалогах */
-  .dlg-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
-  .dlg-actions button { width: 100%; padding: 14px; font-size: 1rem; justify-content: center; }
-}
 
 /* --- КНОПКА НАПОМИНАНИЙ (FAB) --- */
 .fab {
   position: fixed;
-  bottom: calc(20px + env(safe-area-inset-bottom));
-  right: 20px;
-  width: 60px;
-  height: 60px;
+  bottom: 32px;
+  right: 32px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: var(--ac);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
-  box-shadow: 0 6px 16px rgba(91, 108, 255, 0.4);
+  font-size: 28px;
+  box-shadow: 0 8px 24px rgba(91, 108, 255, 0.5);
   cursor: pointer;
   z-index: 99;
   border: none;
-  transition: transform 0.2s;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.fab:hover { transform: scale(1.05); }
+.fab:hover { transform: scale(1.1) rotate(5deg); }
 .fab:active { transform: scale(0.95); }
 .fab .badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: -2px;
+  right: -2px;
   background: #d6364d;
   color: #fff;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   border-radius: 99px;
-  padding: 2px 7px;
-  border: 2px solid var(--bg);
+  padding: 2px 8px;
+  border: 3px solid var(--bg);
   display: none;
 }
 
-/* --- СПИСОК НАПОМИНАНИЙ В ДИАЛОГЕ --- */
-.rem-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: 300px;
-  overflow-y: auto;
-  margin-top: 12px;
-  padding-right: 4px;
-}
+/* --- СПИСОК НАПОМИНАНИЙ --- */
+.rem-list { display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; margin-top: 12px; padding-right: 4px; }
 .rem-list::-webkit-scrollbar { width: 6px; }
 .rem-list::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 99px; }
-.rem-item {
-  background: var(--bg);
-  border: 1px solid var(--bd);
-  border-radius: 12px;
-  padding: 12px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  transition: opacity 0.2s;
-}
-.rem-item.done {
-  opacity: 0.6;
-}
-.rem-item.done .rem-text {
-  text-decoration: line-through;
-  color: var(--mut);
-}
-.rem-item input[type=checkbox] {
-  margin-top: 4px;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  accent-color: var(--ac);
-}
-.rem-content {
-  flex: 1;
-  min-width: 0;
-}
-.rem-date {
-  font-size: 0.8rem;
-  color: var(--ac);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.rem-text {
-  font-size: 1rem;
-  word-break: break-word;
-  line-height: 1.35;
-}
-.rem-subject {
-  font-size: 0.85rem;
-  color: var(--mut);
-  margin-top: 6px;
-  word-break: break-word;
-  background: color-mix(in srgb, var(--mut) 10%, transparent);
-  padding: 2px 8px;
-  border-radius: 6px;
-  display: inline-block;
-}
+.rem-item { background: var(--bg); border: 1px solid var(--bd); border-radius: 12px; padding: 12px; display: flex; gap: 12px; align-items: flex-start; transition: opacity 0.2s; }
+.rem-item.done { opacity: 0.6; }
+.rem-item.done .rem-text { text-decoration: line-through; color: var(--mut); }
+.rem-item input[type=checkbox] { margin-top: 4px; cursor: pointer; width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--ac); }
+.rem-content { flex: 1; min-width: 0; }
+.rem-date { font-size: 0.8rem; color: var(--ac); font-weight: 700; margin-bottom: 4px; }
+.rem-text { font-size: 1rem; word-break: break-word; line-height: 1.35; }
+.rem-subject { font-size: 0.85rem; color: var(--mut); margin-top: 6px; word-break: break-word; background: color-mix(in srgb, var(--mut) 10%, transparent); padding: 2px 8px; border-radius: 6px; display: inline-block; }
 
 /* --- СИНХРОНИЗАЦИЯ UI --- */
-.foot .x{font-size:.85em;padding:4px 10px;margin-left:4px}
+.foot .x{font-size:.85em;padding:6px 12px;margin-left:4px}
 #syncStatus{min-height:1.2em}
 .gh-help{background:var(--bg);border-radius:12px;padding:12px 14px;font-size:.85rem;color:var(--mut);line-height:1.55}
 .gh-help ol{margin:8px 0 0;padding-left:1.2em}
@@ -295,20 +225,122 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 :root[data-theme="dark"] .sync-err{background:#3a1515;color:#ff8c8c}
 :root[data-theme="dark"] .sync-ok{background:#15331f;color:#7be49c}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+
+/* =========================================
+   МОБИЛЬНАЯ ВЕРСИЯ (ПОЛНЫЙ СБРОС ПК-СТИЛЕЙ)
+   ========================================= */
+@media (max-width: 768px) {
+  body { -webkit-tap-highlight-color: transparent; }
+  
+  /* Контейнер */
+  .wrap { padding: 12px 12px 100px; max-width: 100%; }
+  h1 { font-size: 1.3rem; margin-bottom: 12px; }
+  
+  /* Шапка */
+  .bar { 
+    position: static; 
+    background: var(--card); 
+    backdrop-filter: none; 
+    -webkit-backdrop-filter: none;
+    border-radius: 16px; 
+    padding: 12px; 
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .bar .lbl { order: -1; text-align: center; font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  .bar-row-1 { display: flex; gap: 8px; }
+  .bar-row-1 button { flex: 1; justify-content: center; padding: 10px 0; font-size: 1rem; box-shadow: none; }
+  .bar-row-2 { display: flex; gap: 8px; }
+  .bar-row-2 .btn { flex: 1; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 1rem; box-shadow: none;}
+  
+  /* Сетка дней */
+  #list { 
+    flex-direction: column; 
+    overflow-x: visible; 
+    overflow-y: visible; 
+    gap: 0; 
+    scroll-snap-type: none;
+    padding: 4px 0 16px;
+  }
+  .daycol { 
+    flex: 1 1 auto; 
+    width: 100%; 
+    background: transparent; 
+    border: none; 
+    border-radius: 0; 
+    padding: 0; 
+    gap: 8px; 
+    margin-bottom: 20px; 
+    scroll-snap-align: none;
+  }
+  .day { border-bottom: none; padding-bottom: 0; margin: 4px 0 6px; }
+  
+  /* Карточки */
+  .les { 
+    padding: 14px 16px; 
+    border-radius: 16px; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04); 
+    margin-bottom: 10px; 
+  }
+  .les:hover { transform: none; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .les .t { font-size: 0.8rem; padding: 4px 10px; margin-bottom: 8px; }
+  .les .n { font-size: 1.1rem; margin-bottom: 4px; }
+  .les .loc { font-size: 0.85rem; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+  .hw { padding: 10px 12px; border-radius: 8px; font-size: 0.85rem; margin-top: 10px; }
+  .bds { gap: 6px; margin-top: 8px; }
+  .bd { font-size: 0.7rem; padding: 3px 8px; }
+  
+  /* FAB */
+  .fab {
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
+    box-shadow: 0 6px 16px rgba(91, 108, 255, 0.4);
+  }
+  .fab .badge { top: -4px; right: -4px; font-size: 13px; padding: 2px 7px; border-width: 2px; }
+  
+  /* Диалоговые окна (Bottom Sheet) */
+  dialog { 
+    width: 100% !important; 
+    max-width: 100% !important; 
+    margin: auto auto 0 auto !important; 
+    border-radius: 24px 24px 0 0 !important; 
+    border-bottom: none; 
+    padding: 20px 16px calc(20px + env(safe-area-inset-bottom)) !important;
+    max-height: 90vh;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    animation: slideUp 0.25s ease-out forwards;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  
+  textarea, input[type=text], input[type=password], input[type=date], select { font-size: 16px !important; padding: 12px !important; }
+  
+  .rem-form { display: flex; flex-direction: column; gap: 10px; }
+  .rem-form input { width: 100%; }
+  .rem-form button { width: 100%; padding: 12px; font-size: 1rem; }
+  
+  .dlg-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+  .dlg-actions button { width: 100%; padding: 14px; font-size: 1rem; justify-content: center; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>📚 Расписание и ДЗ</h1>
   
-  <!-- Обновленная шапка -->
+  <!-- Шапка -->
   <div class="bar">
     <div class="lbl" id="range"></div>
     
     <div class="bar-row-1">
-      <button id="prev" aria-label="Назад" style="font-size:1.2rem;font-weight:bold;">‹ Назад</button>
+      <button id="prev" aria-label="Назад" style="font-size:1.1rem;font-weight:bold;">‹ Назад</button>
       <button id="today" style="font-weight:600;">Сегодня</button>
-      <button id="next" aria-label="Вперёд" style="font-size:1.2rem;font-weight:bold;">Вперёд ›</button>
+      <button id="next" aria-label="Вперёд" style="font-size:1.1rem;font-weight:bold;">Вперёд ›</button>
     </div>
     
     <div class="bar-row-2">
@@ -347,7 +379,7 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
     <input type="date" id="remDate">
     <input type="text" id="remSubj" list="subjList" placeholder="Предмет (необязательно)" autocomplete="off">
     <datalist id="subjList"></datalist>
-    <button class="pri" id="remAdd">＋ Добавить напоминание</button>
+    <button class="pri" id="remAdd">＋ Добавить</button>
   </div>
 
   <div class="rem-list" id="remList"></div>
@@ -638,7 +670,6 @@ function renderReminders() {
     return;
   }
   
-  // Сортируем: сначала невыполненные, затем по дате
   const sorted = [...reminders].sort((a,b) => {
       if(a.done !== b.done) return a.done ? 1 : -1;
       return (a.date||0) - (b.date||0);
@@ -693,7 +724,6 @@ $('#btnReminders').onclick = () => {
     $('#remDate').value = new Date().toISOString().split('T')[0];
   }
   
-  // Обновляем даталист предметов
   const subjs = new Set();
   events.forEach(e => { if(e.title) subjs.add(e.title) });
   $('#subjList').innerHTML = [...subjs].map(s => `<option value="${esc(s)}">`).join('');
