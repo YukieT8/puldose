@@ -13,12 +13,13 @@ body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-appl
 h1{font-size:1.3rem;margin:0 0 12px}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
 .bar .lbl{flex:1;font-weight:600;text-align:center;min-width:140px}
-button,.btn{font:inherit;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:6px 12px;cursor:pointer}
+button,.btn{font:inherit;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:6px 12px;cursor:pointer;transition:all 0.15s ease;}
 button:hover,.btn:hover{border-color:var(--ac)}
+button:active,.btn:active{transform:scale(0.97);}
 .pri{background:var(--ac);color:#fff;border-color:var(--ac)}
-.les{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;margin-bottom:6px;cursor:pointer;transition:transform .1s, border-color .1s;border-left:4px solid var(--c,var(--ac))}
+.les{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:transform .1s, border-color .1s;border-left:4px solid var(--c,var(--ac))}
 .les:hover{border-color:var(--ac);transform:translateY(-1px)}
-.les .t{color:var(--mut);font-size:.75rem;display:inline-block;background:color-mix(in srgb,var(--c,var(--ac)) 14%,transparent);color:var(--c,var(--ac));font-weight:600;padding:2px 8px;border-radius:99px;margin-bottom:4px}
+.les .t{color:var(--mut);font-size:.75rem;display:inline-block;background:color-mix(in srgb,var(--c,var(--ac)) 14%,transparent);color:var(--c,var(--ac));font-weight:600;padding:2px 8px;border-radius:99px;margin-bottom:6px}
 .les .n{font-weight:600;font-size:.95rem;line-height:1.25}
 .les .loc{color:var(--mut);font-size:.75rem;margin-top:4px;word-break:break-word}
 .hw{margin-top:6px;background:var(--hw);color:var(--hwtx);border-left:3px solid #f5b83d;border-radius:6px;padding:6px 8px;font-size:.8rem;white-space:pre-wrap;word-break:break-word;line-height:1.35}
@@ -26,7 +27,7 @@ button:hover,.btn:hover{border-color:var(--ac)}
 .empty{border:2px dashed var(--bd);border-radius:14px;padding:28px;text-align:center;color:var(--mut)}
 .free{color:var(--mut);font-size:.85rem;padding:2px 2px 0;border:1px dashed var(--bd);border-radius:10px;padding:10px}
 dialog{border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);width:min(640px,94vw);max-height:90vh;padding:18px}
-dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px);}
 dialog h2{margin:0 0 2px;font-size:1.15rem}
 .sub{color:var(--mut);font-size:.85rem;margin-bottom:10px;line-height:1.45}
 .sub code{background:var(--bg);padding:1px 5px;border-radius:5px;font-size:.82em}
@@ -66,12 +67,12 @@ a{color:var(--ac)}
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding: 16px 20px 100px; /* Увеличил нижний отступ, чтобы кнопка не перекрывала контент */
+  padding: 16px 20px 100px;
 }
 h1{font-size:1.5rem;letter-spacing:-.02em;margin:4px 0 16px}
 .bar{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:8px 12px;box-shadow:var(--sh);gap:8px}
 .bar .lbl{font-size:1rem}
-button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;transition:border-color .15s,background .15s;box-shadow:0 1px 1px rgba(0,0,0,.02)}
+button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;box-shadow:0 1px 1px rgba(0,0,0,.02)}
 .pri{background:var(--ac);color:#fff;border-color:var(--ac)}
 .pri:hover{filter:brightness(1.08)}
 
@@ -96,7 +97,7 @@ button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;transition:borde
   min-width:0;
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:8px;
 }
 .day{
   display:flex;
@@ -113,7 +114,7 @@ button,.btn{border-radius:10px;padding:8px 14px;font-weight:500;transition:borde
 
 /* --- БЕЙДЖИ --- */
 .bds{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-.bd{--kc:#3b6ef0;display:inline-block;font-size:.65rem;font-weight:700;padding:1px 6px;border-radius:99px;color:var(--kc);background:color-mix(in srgb,var(--kc) 15%,transparent);border:1px solid color-mix(in srgb,var(--kc) 35%,transparent);white-space:nowrap}
+.bd{--kc:#3b6ef0;display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:99px;color:var(--kc);background:color-mix(in srgb,var(--kc) 15%,transparent);border:1px solid color-mix(in srgb,var(--kc) 35%,transparent);white-space:nowrap}
 .k-lec{--kc:#3b6ef0}.k-prac{--kc:#0f9d6b}.k-lab{--kc:#c0701a}.k-sem{--kc:#8a4fd6}.k-exam{--kc:#d6364d}.k-on{--kc:#0e8fb0}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bd{color:color-mix(in srgb,var(--kc) 65%,#fff)}}
 :root[data-theme="dark"] .bd{color:color-mix(in srgb,var(--kc) 65%,#fff)}
@@ -121,59 +122,105 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 .k-none{--kc:#8a8f9c;background:transparent;border-style:dashed;font-weight:600}
 .empty{flex:1 1 auto;align-self:center;width:100%}
 
-/* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
+/* --- МОБИЛЬНАЯ ВЕРСИЯ (СНИЗУ ШТОРКА, УДОБНЫЕ КАРТОЧКИ) --- */
 @media (max-width: 768px) {
-  .wrap { padding: 10px 10px 100px; }
+  body { -webkit-tap-highlight-color: transparent; }
+  .wrap { padding: 12px 12px 100px; }
+  
   #list { flex-direction: column; overflow-x: visible; overflow-y: visible; gap: 0; }
-  .daycol { flex: 1 1 auto; width: 100%; gap: 6px; margin-bottom: 16px; }
-  .bar { flex-direction: row; flex-wrap: wrap; }
-  .bar .lbl { order: -1; flex-basis: 100%; text-align: left; font-size: 1rem; margin-bottom: 6px; }
-  .les { padding: 10px 12px; }
+  .daycol { flex: 1 1 auto; width: 100%; gap: 8px; margin-bottom: 20px; }
+  
+  /* Шапка */
+  .bar { flex-direction: column; align-items: stretch; padding: 12px; border-radius: 16px; gap: 10px; }
+  .bar .lbl { order: -1; text-align: center; font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  
+  .bar-row-1 { display: flex; gap: 8px; }
+  .bar-row-1 button { flex: 1; justify-content: center; padding: 10px 0; font-size: 1rem; }
+  
+  .bar-row-2 { display: flex; gap: 8px; }
+  .bar-row-2 .btn { flex: 1; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 1rem; }
+  
+  /* Карточка */
+  .les { padding: 14px 16px; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); margin-bottom: 10px; }
+  .les .t { font-size: 0.8rem; padding: 4px 10px; margin-bottom: 8px; }
+  .les .n { font-size: 1.1rem; margin-bottom: 4px; }
+  .les .loc { font-size: 0.85rem; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+  
+  /* Заметки */
+  .hw { padding: 10px 12px; border-radius: 8px; font-size: 0.85rem; margin-top: 10px; }
+  
+  /* Бейджи */
+  .bds { gap: 6px; margin-top: 8px; }
+  .bd { font-size: 0.7rem; padding: 3px 8px; }
+  
+  /* Диалоговые окна - Эффект "Нижней шторки" (Bottom Sheet) */
+  dialog { 
+    width: 100% !important; 
+    max-width: 100% !important; 
+    margin: auto auto 0 auto !important; 
+    border-radius: 24px 24px 0 0 !important; 
+    border-bottom: none; 
+    padding: 20px 16px calc(20px + env(safe-area-inset-bottom)) !important;
+    max-height: 90vh;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    animation: slideUp 0.25s ease-out forwards;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  
+  /* Увеличиваем инпуты для iOS (чтобы не было зума) */
+  textarea, input[type=text], input[type=password], input[type=date], select { font-size: 16px !important; padding: 12px !important; }
+  
+  /* Форма напоминаний (в мобильной версии в столбик) */
+  .rem-form { display: flex; flex-direction: column; gap: 10px; }
+  .rem-form input { width: 100%; }
+  .rem-form button { width: 100%; padding: 12px; font-size: 1rem; }
+  
+  /* Кнопки в диалогах */
+  .dlg-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+  .dlg-actions button { width: 100%; padding: 14px; font-size: 1rem; justify-content: center; }
 }
 
 /* --- КНОПКА НАПОМИНАНИЙ (FAB) --- */
 .fab {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 56px;
-  height: 56px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  right: 20px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: var(--ac);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  font-size: 26px;
+  box-shadow: 0 6px 16px rgba(91, 108, 255, 0.4);
   cursor: pointer;
   z-index: 99;
   border: none;
   transition: transform 0.2s;
 }
 .fab:hover { transform: scale(1.05); }
+.fab:active { transform: scale(0.95); }
 .fab .badge {
   position: absolute;
-  top: -2px;
-  right: -2px;
+  top: -4px;
+  right: -4px;
   background: #d6364d;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   border-radius: 99px;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border: 2px solid var(--bg);
   display: none;
-}
-@media (max-width: 768px) {
-  .fab { bottom: 16px; right: 16px; width: 50px; height: 50px; font-size: 20px; }
 }
 
 /* --- СПИСОК НАПОМИНАНИЙ В ДИАЛОГЕ --- */
 .rem-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   max-height: 300px;
   overflow-y: auto;
   margin-top: 12px;
@@ -184,11 +231,12 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 .rem-item {
   background: var(--bg);
   border: 1px solid var(--bd);
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 12px;
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: flex-start;
+  transition: opacity 0.2s;
 }
 .rem-item.done {
   opacity: 0.6;
@@ -200,39 +248,44 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 .rem-item input[type=checkbox] {
   margin-top: 4px;
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
+  accent-color: var(--ac);
 }
 .rem-content {
   flex: 1;
   min-width: 0;
 }
 .rem-date {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--ac);
-  font-weight: 600;
-  margin-bottom: 2px;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 .rem-text {
-  font-size: 0.95rem;
+  font-size: 1rem;
   word-break: break-word;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 .rem-subject {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--mut);
-  margin-top: 4px;
+  margin-top: 6px;
   word-break: break-word;
+  background: color-mix(in srgb, var(--mut) 10%, transparent);
+  padding: 2px 8px;
+  border-radius: 6px;
+  display: inline-block;
 }
 
 /* --- СИНХРОНИЗАЦИЯ UI --- */
 .foot .x{font-size:.85em;padding:4px 10px;margin-left:4px}
 #syncStatus{min-height:1.2em}
-.gh-help{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.82rem;color:var(--mut);line-height:1.55}
-.gh-help ol{margin:6px 0 0;padding-left:1.2em}
-.gh-help li{margin:4px 0}
-.sync-state{padding:8px 12px;border-radius:10px;font-size:.85rem;background:var(--acbg);color:var(--ac);min-height:1.2em;word-break:break-word}
+.gh-help{background:var(--bg);border-radius:12px;padding:12px 14px;font-size:.85rem;color:var(--mut);line-height:1.55}
+.gh-help ol{margin:8px 0 0;padding-left:1.2em}
+.gh-help li{margin:6px 0}
+.sync-state{padding:10px 14px;border-radius:10px;font-size:.9rem;background:var(--acbg);color:var(--ac);min-height:1.2em;word-break:break-word}
 .sync-err{background:#fee;color:#a00}
 .sync-ok{background:#e9f8ee;color:#0a6b2e}
 @media (prefers-color-scheme:dark){
@@ -241,22 +294,35 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 }
 :root[data-theme="dark"] .sync-err{background:#3a1515;color:#ff8c8c}
 :root[data-theme="dark"] .sync-ok{background:#15331f;color:#7be49c}
-.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>📚 Расписание и домашние задания</h1>
+  <h1>📚 Расписание и ДЗ</h1>
+  
+  <!-- Обновленная шапка -->
   <div class="bar">
-    <button id="prev" aria-label="Назад">‹</button>
-    <button id="today">Сегодня</button>
-    <button id="next" aria-label="Вперёд">›</button>
     <div class="lbl" id="range"></div>
-    <label class="btn pri">Импорт .ics<input id="ics" type="file" accept=".ics,text/calendar" hidden></label>
+    
+    <div class="bar-row-1">
+      <button id="prev" aria-label="Назад" style="font-size:1.2rem;font-weight:bold;">‹ Назад</button>
+      <button id="today" style="font-weight:600;">Сегодня</button>
+      <button id="next" aria-label="Вперёд" style="font-size:1.2rem;font-weight:bold;">Вперёд ›</button>
+    </div>
+    
+    <div class="bar-row-2">
+      <label class="btn pri" style="margin:0;text-align:center;justify-content:center;display:flex;align-items:center;">
+        📥 Импорт .ics
+        <input id="ics" type="file" accept=".ics,text/calendar" hidden>
+      </label>
+    </div>
   </div>
+  
   <div id="list"></div>
+  
   <div class="foot">
-    <div>Данные хранятся в этом браузере.
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
       <button id="btnBackup" class="x" type="button">💾 Резервная копия</button>
       <button id="btnCloud" class="x" type="button">☁️ Синхронизация</button>
       <button id="wipe" class="x" type="button">Удалить всё</button>
@@ -265,7 +331,7 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
   </div>
 </div>
 
-<!-- Кнопка напоминаний (справа снизу) -->
+<!-- Кнопка напоминаний -->
 <button class="fab" id="btnReminders" title="Напоминания">
   🔔
   <span class="badge" id="remBadge">0</span>
@@ -274,33 +340,33 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
 <!-- Диалог напоминаний -->
 <dialog id="dlgReminders">
   <h2>🔔 Напоминания</h2>
-  <div class="sub">Добавьте заметку, укажите дату и (по желанию) предмет из расписания.</div>
+  <div class="sub">Добавьте заметку, укажите дату и (по желанию) предмет.</div>
   
-  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-    <input type="text" id="remText" placeholder="Что напомнить?" style="flex:2; min-width:180px;">
-    <input type="date" id="remDate" style="flex:1; min-width:120px;">
-    <input type="text" id="remSubj" list="subjList" placeholder="Предмет (необяз.)" style="flex:1; min-width:140px;">
+  <div class="rem-form" style="margin-bottom:16px;">
+    <input type="text" id="remText" placeholder="Что напомнить?" autocomplete="off">
+    <input type="date" id="remDate">
+    <input type="text" id="remSubj" list="subjList" placeholder="Предмет (необязательно)" autocomplete="off">
     <datalist id="subjList"></datalist>
-    <button class="pri" id="remAdd" style="padding:8px 16px;">＋</button>
+    <button class="pri" id="remAdd">＋ Добавить напоминание</button>
   </div>
 
   <div class="rem-list" id="remList"></div>
   
-  <div class="row" style="justify-content:flex-end;margin-top:16px">
+  <div class="dlg-actions">
     <button class="pri" id="remClose">Готово</button>
   </div>
 </dialog>
 
-<!-- Диалоги (расписание, бэкап, синхронизация) -->
+<!-- Диалог пары -->
 <dialog id="dlg">
   <h2 id="dT"></h2>
   <div class="sub" id="dS"></div>
   <div class="bds" id="dB" style="margin:0 0 10px"></div>
   <div class="desc" id="dD"></div>
-  <label class="h">Тип занятия (для всех таких пар)</label>
+  <label class="h">Тип занятия</label>
   <div class="row">
-    <select id="sKind"><option value="auto">Тип: авто</option><option value="lec">Лекция</option><option value="prac">Практика</option><option value="lab">Лабораторная</option><option value="sem">Семинар</option><option value="exam">Экзамен</option><option value="none">Не указывать</option></select>
-    <select id="sOn"><option value="auto">Формат: авто</option><option value="yes">Онлайн</option><option value="no">Очно</option></select>
+    <select id="sKind" style="flex:1;"><option value="auto">Тип: авто</option><option value="lec">Лекция</option><option value="prac">Практика</option><option value="lab">Лабораторная</option><option value="sem">Семинар</option><option value="exam">Экзамен</option><option value="none">Не указывать</option></select>
+    <select id="sOn" style="flex:1;"><option value="auto">Формат: авто</option><option value="yes">Онлайн</option><option value="no">Очно</option></select>
   </div>
   <label class="h" for="dHW">Домашнее задание</label>
   <textarea id="dHW" placeholder="Что задали? Ссылки вида https://… станут кликабельными"></textarea>
@@ -310,62 +376,72 @@ select{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--
   <div class="row">
     <input type="text" id="lT" placeholder="Название (необязательно)" style="flex:1;min-width:130px">
     <input type="text" id="lU" placeholder="https://…" style="flex:2;min-width:160px">
-    <button id="lAdd">Добавить</button>
+    <button id="lAdd" style="width:100%;margin-top:4px;">Добавить ссылку</button>
   </div>
   <label class="h">Файлы</label>
   <div id="dFiles"></div>
-  <div class="row"><label class="btn">＋ Прикрепить файлы<input id="fIn" type="file" multiple hidden></label></div>
-  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="close">Готово</button></div>
+  <div class="row"><label class="btn" style="width:100%;text-align:center;">＋ Прикрепить файлы<input id="fIn" type="file" multiple hidden></label></div>
+  <div class="dlg-actions" style="margin-top:20px;">
+    <button class="pri" id="close" style="padding:14px;">Готово</button>
+  </div>
 </dialog>
 
+<!-- Диалог бэкапа -->
 <dialog id="dlgBackup">
   <h2>💾 Резервная копия</h2>
-  <div class="sub">Скачайте JSON на одном устройстве и загрузите на другом — расписание, заметки, ссылки и файлы перенесутся.</div>
-  <div class="row">
+  <div class="sub">Скачайте JSON на одном устройстве и загрузите на другом.</div>
+  <div class="dlg-actions">
     <button class="pri" id="bkExp" type="button">⬇ Скачать JSON</button>
-    <label class="btn">⬆ Загрузить JSON<input id="bkInp" type="file" accept=".json,application/json" hidden></label>
+    <label class="btn" style="text-align:center;">⬆ Загрузить JSON<input id="bkInp" type="file" accept=".json,application/json" hidden></label>
   </div>
   <div class="sync-state" id="bkStatus" style="margin-top:10px;display:none"></div>
-  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="bkClose" type="button">Готово</button></div>
+  <div class="dlg-actions" style="margin-top:20px;">
+    <button class="pri" id="bkClose" type="button">Закрыть</button>
+  </div>
 </dialog>
 
+<!-- Диалог синхронизации -->
 <dialog id="dlgCloud">
   <h2>☁️ Синхронизация</h2>
   <div id="ghSetup">
     <div class="gh-help">
       <b>Как подключить второе устройство:</b>
       <ol>
-        <li><b>На первом устройстве</b> (где уже есть данные) создайте токен GitHub: <a href="https://github.com/settings/tokens/new?scopes=gist&description=Schedule" target="_blank" rel="noopener">github.com/settings/tokens/new?scopes=gist</a> (галочка <code>gist</code>)</li>
-        <li>Вставьте токен в поле ниже → «Подключить». Появится <b>код подключения</b> — скопируйте.</li>
-        <li><b>На втором устройстве:</b> этот же диалог → вставьте код → «Подключить». Данные придут.</li>
+        <li><b>На первом устройстве</b> создайте токен: <a href="https://github.com/settings/tokens/new?scopes=gist&description=Schedule" target="_blank" rel="noopener">github.com/settings/tokens/new?scopes=gist</a> (галочка <code>gist</code>)</li>
+        <li>Вставьте токен ниже → «Подключить». Скопируйте код.</li>
+        <li><b>На втором:</b> вставьте код → «Подключить».</li>
       </ol>
     </div>
     <label class="h">Код подключения или токен</label>
-    <textarea id="ghIn" placeholder="Вставьте код подключения (со второго устройства) или токен ghp_… (на первом)" class="mono" style="min-height:80px"></textarea>
-    <div class="row"><button class="pri" id="ghConnect" type="button">🔗 Подключить</button></div>
+    <textarea id="ghIn" placeholder="Вставьте код (со второго устройства) или токен ghp_… (на первом)" class="mono" style="min-height:80px"></textarea>
+    <div class="dlg-actions" style="margin-top:16px;">
+      <button class="pri" id="ghConnect" type="button">🔗 Подключить</button>
+    </div>
   </div>
+
   <div id="ghConnected" style="display:none">
     <div class="sync-state sync-ok" id="ghConnState"></div>
-    <div class="row" style="margin-top:10px">
+    <div class="dlg-actions" style="margin-top:16px;">
       <button class="pri" id="ghSync" type="button">🔄 Синхронизировать</button>
       <button id="ghShowCode" type="button">📤 Код подключения</button>
       <button id="ghUnlink" type="button">Отвязать</button>
     </div>
-    <div id="ghCodeBlock" style="display:none;margin-top:12px">
+    <div id="ghCodeBlock" style="display:none;margin-top:16px">
       <label class="h">Код для других устройств</label>
       <textarea id="ghCodeOut" readonly class="mono" style="min-height:80px"></textarea>
-      <div class="row">
+      <div class="dlg-actions" style="margin-top:12px;">
         <button class="pri" id="ghCopy" type="button">📋 Скопировать</button>
         <button id="ghCopyHide" type="button">Скрыть</button>
       </div>
-      <div class="sub" style="margin-top:6px">Вставьте этот код в поле «Код подключения» на другом устройстве — данные придут автоматически.</div>
     </div>
-    <div class="row" style="margin-top:10px">
-      <label style="display:flex;align-items:center;gap:8px;font-weight:500"><input type="checkbox" id="ghAuto"> Авто-синхронизация</label>
+    <div class="row" style="margin-top:16px">
+      <label style="display:flex;align-items:center;gap:10px;font-weight:500;font-size:1rem;"><input type="checkbox" id="ghAuto" style="width:20px;height:20px;"> Авто-синхронизация</label>
     </div>
   </div>
   <div class="sync-state" id="ghStatus" style="display:none;margin-top:12px"></div>
-  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" id="ghClose" type="button">Готово</button></div>
+  <div class="dlg-actions" style="margin-top:20px;">
+    <button class="pri" id="ghClose" type="button">Готово</button>
+  </div>
 </dialog>
 
 <script>
@@ -745,7 +821,7 @@ $('#wipe').onclick=async()=>{
   lastLocalEdit = lastSyncedEdit = Date.now();
   localStorage.setItem('last_edit', String(lastLocalEdit));
   localStorage.setItem('last_sync', String(lastSyncedEdit));
-  render();
+  render(); updateRemBadge();
 };
 
 /* ============================================================
